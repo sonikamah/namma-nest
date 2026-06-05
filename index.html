@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script>if(location.protocol!=='https:'&&location.hostname!=='localhost')location.replace('https:'+window.location.href.substring(window.location.protocol.length));</script>
+  <script>if(location.protocol!=='https:'&&location.protocol!=='file:'&&location.hostname!=='localhost')location.replace('https:'+window.location.href.substring(window.location.protocol.length));</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SocialBling — Your Parent Village, Anywhere in India</title>
   <meta name="description" content="Join WhatsApp circles with parents of same-age kids near you. Weekend playdates, mom circles, dad groups & more — in your city.">
@@ -371,41 +371,79 @@
 
       <!-- KITTY STEPS PANEL -->
       <div class="modal-step" id="kittyStepsPanel">
-        <div class="modal-hdr">
-          <h3>🪺 Join a Kitty Party</h3>
-          <p>4 simple steps to find your circle in Bangalore.</p>
+
+        <!-- Step progress dots -->
+        <div class="kp-dots" id="kpDots">
+          <span class="kp-dot active" data-step="1"></span>
+          <span class="kp-dot" data-step="2"></span>
+          <span class="kp-dot" data-step="3"></span>
+          <span class="kp-dot" data-step="4"></span>
         </div>
-        <div class="kitty-steps">
-          <div class="kitty-step">
-            <div class="ks-num">1</div>
-            <div class="ks-body">
-              <div class="ks-title">Find Your Neighborhood</div>
-              <div class="ks-desc">Pick the WhatsApp group closest to where you live — we have 18 areas across Bangalore.</div>
-            </div>
+
+        <!-- Step 1: Name -->
+        <div class="kp-step" id="kpStep1">
+          <div class="modal-hdr">
+            <span class="step-label">Step 1 of 4</span>
+            <h3>👤 What's your name?</h3>
+            <p>Tell us what to call you in your Kitty circle.</p>
           </div>
-          <div class="kitty-step">
-            <div class="ks-num">2</div>
-            <div class="ks-body">
-              <div class="ks-title">Join the WhatsApp Circle</div>
-              <div class="ks-desc">Tap the group link, introduce yourself and your little one. You'll be welcomed within minutes.</div>
-            </div>
+          <div class="kp-field">
+            <label for="kpName">Full Name</label>
+            <input type="text" id="kpName" placeholder="e.g. Priya Sharma" autocomplete="name" />
           </div>
-          <div class="kitty-step">
-            <div class="ks-num">3</div>
-            <div class="ks-body">
-              <div class="ks-title">Attend Your First Kitty</div>
-              <div class="ks-desc">Show up to the next meetup in your area — chai, snacks, and parents who just get it.</div>
-            </div>
-          </div>
-          <div class="kitty-step">
-            <div class="ks-num">4</div>
-            <div class="ks-body">
-              <div class="ks-title">Invite 3 Parent Friends</div>
-              <div class="ks-desc">Share SocialBling with 3 parents you know. Help us grow every Kitty circle to 99 families! 🎯</div>
-            </div>
-          </div>
+          <button class="btn btn-primary kp-next-btn" onclick="kpNext(1)">Next →</button>
         </div>
-        <button class="btn btn-primary" style="width:100%;margin-top:24px;justify-content:center" onclick="proceedToGroups()">Find My WhatsApp Group →</button>
+
+        <!-- Step 2: Phone -->
+        <div class="kp-step hidden" id="kpStep2">
+          <div class="modal-hdr">
+            <span class="step-label">Step 2 of 4</span>
+            <h3>📱 Your WhatsApp number</h3>
+            <p>We'll add you to your neighborhood Kitty circle.</p>
+          </div>
+          <div class="kp-field">
+            <label for="kpPhone">Phone Number</label>
+            <div class="kp-phone-row">
+              <span class="kp-flag">🇮🇳 +91</span>
+              <input type="tel" id="kpPhone" placeholder="98765 43210" maxlength="10" autocomplete="tel" />
+            </div>
+          </div>
+          <button class="btn btn-primary kp-next-btn" onclick="kpNext(2)">Next →</button>
+          <button class="kp-back-btn" onclick="kpBack(2)">← Back</button>
+        </div>
+
+        <!-- Step 3: Pay ₹99 -->
+        <div class="kp-step hidden" id="kpStep3">
+          <div class="modal-hdr">
+            <span class="step-label">Step 3 of 4</span>
+            <h3>💰 Pay ₹99 to join</h3>
+            <p>One-time entry fee. Goes into your first Kitty pot!</p>
+          </div>
+          <div class="kp-pay-box">
+            <div class="kp-amount">₹99</div>
+            <div class="kp-upi-label">Pay via GPay / PhonePe / UPI</div>
+            <div class="kp-upi-id" id="kpUpiId">socialbling@upi</div>
+            <button class="kp-copy-btn" onclick="copyUpi()">📋 Copy UPI ID</button>
+            <a class="btn btn-primary kp-gpay-btn" href="upi://pay?pa=socialbling@upi&pn=SocialBling&am=99&cu=INR&tn=Kitty+Party+Entry" onclick="kpMarkPaid()">
+              Open GPay →
+            </a>
+          </div>
+          <button class="btn btn-primary kp-next-btn" id="kpPaidBtn" onclick="kpNext(3)" style="display:none">I've Paid ✓ Continue →</button>
+          <button class="kp-back-btn" onclick="kpBack(3)">← Back</button>
+        </div>
+
+        <!-- Step 4: Confirm -->
+        <div class="kp-step hidden" id="kpStep4">
+          <div class="modal-hdr">
+            <span class="step-label">Step 4 of 4</span>
+            <h3>🎉 You're almost in!</h3>
+            <p>Choose your WhatsApp circle and introduce yourself.</p>
+          </div>
+          <div class="kp-confirm-box" id="kpConfirmBox"></div>
+          <button class="btn btn-primary kp-next-btn" onclick="proceedToGroups()">Find My WhatsApp Group →</button>
+          <button class="kp-back-btn" onclick="kpBack(4)">← Back</button>
+        </div>
+
       </div>
 
       <!-- ALL GROUPS PANEL -->
