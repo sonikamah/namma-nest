@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialBling — Your Parent Village, Anywhere in India</title>
+  <meta name="description" content="Join WhatsApp circles with parents of same-age kids near you. Weekend playdates, mom circles, dad groups & more — in your city.">
+  <meta name="theme-color" content="#F97316">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">
+          <span class="logo-mark">🪺</span>
+          <span class="logo-name">SocialBling</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#meetups">Meetups</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#neighborhoods">Areas</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="btn btn-primary" onclick="openModal()">Join Kitty Party →</button>
+          <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="badge">🌿 Parent Community · Your City</div>
+          <h1>Find your <em>village</em>,<br>raise your child together</h1>
+          <p class="hero-sub">Join WhatsApp circles with parents of same-age kids in your neighborhood. Weekend playdates, mom recharge hours, dad meetups &amp; more — all free.</p>
+          <div class="hero-btns">
+            <button class="btn btn-primary btn-lg" onclick="openModal()">Find My Circle →</button>
+            <a href="#circles" class="btn btn-ghost btn-lg">Our circles ↓</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>1,200+</b><span>Families</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>18</b><span>Areas</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>8</b><span>Age groups</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>4.9★</b><span>Rating</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="wa-header">
+                <div class="wa-avatar">🪺</div>
+                <div class="wa-info">
+                  <b>Koramangala Moms 2–3yr</b>
+                  <span>47 members</span>
+                </div>
+                <div class="wa-dots">⋮</div>
+              </div>
+              <div class="wa-messages">
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">Hi everyone! New here 👋 Mom of a 2yo from 5th block</div>
+                  <div class="wa-name">Priya</div>
+                </div>
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">Welcome Priya! ❤️ We have a playdate this Sunday at Lalbagh — join us!</div>
+                  <div class="wa-name">Meena</div>
+                </div>
+                <div class="wa-msg wa-msg-me">
+                  <div class="wa-bubble">OMG yes! Finally found my people 😭</div>
+                </div>
+                <div class="wa-reactions">
+                  <span>❤️ 12</span>
+                  <span>😂 5</span>
+                </div>
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">📅 Sunday 9AM — Lalbagh South Gate. Bring snacks!</div>
+                  <div class="wa-name">Meena</div>
+                </div>
+              </div>
+              <div class="wa-input-bar">
+                <span class="wa-input-placeholder">Type a message</span>
+                <span class="wa-send">➤</span>
+              </div>
+            </div>
+          </div>
+          <div class="float-card fc-1">
+            <span>📍</span>
+            <div><b>HSR Layout</b><small>Sunday playdate</small></div>
+          </div>
+          <div class="float-card fc-2">
+            <span>🏃</span>
+            <div><b>5AM Dad Club</b><small>12 dads · Sun 6AM</small></div>
+          </div>
+          <div class="float-card fc-3">
+            <span>🔄</span>
+            <div><b>Recharge Hour</b><small>2 slots left!</small></div>
+          </div>
+          <div class="float-card fc-4">
+            <span>🎖️</span>
+            <div><b>3 new stamps!</b><small>Playdate Passport</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIRCLES ============ -->
+  <section class="section section-dark" id="circles">
+    <div class="container">
+      <div class="sec-hdr sec-hdr-light">
+        <div class="badge badge-outline">Our Communities</div>
+        <h2 class="light">Three circles, one village</h2>
+        <p class="light">Different spaces for different needs — all part of the same community.</p>
+      </div>
+      <div class="circles-grid">
+
+        <div class="circle-card reveal" style="--accent-c: var(--mom)">
+          <div class="cc-top">
+            <span class="cc-emoji">💕</span>
+            <div>
+              <h3>Mom Circles</h3>
+              <small>Age-matched · Location-based</small>
+            </div>
+          </div>
+          <p>Your safe space to be real. Vent, laugh, ask awkward questions, share the load. No perfect parenting here.</p>
+          <ul class="cc-list">
+            <li>Age-matched peer group</li>
+            <li>Mom Recharge Hours (swap childcare)</li>
+            <li>The Honest Hour — weekly check-ins</li>
+            <li>Postpartum &amp; feeding support</li>
+            <li>Weekend playdate planning</li>
+          </ul>
+          <a class="btn btn-circle btn-mom" href="https://chat.whatsapp.com/E1V1TPo2nZ6H9nJiADyTWJ" target="_blank" rel="noopener noreferrer">💬 Join Mom Circle →</a>
+        </div>
+
+        <div class="circle-card reveal" style="--accent-c: var(--dad)">
+          <div class="cc-top">
+            <span class="cc-emoji">💪</span>
+            <div>
+              <h3>Dad Circles</h3>
+              <small>Age-matched · Location-based</small>
+            </div>
+          </div>
+          <p>Most parenting apps ignore dads. We don't. Find your crew — no parenting advice, just real connection.</p>
+          <ul class="cc-list">
+            <li>5AM Dad Club (park runs + strollers)</li>
+            <li>No-phones park hangouts</li>
+            <li>Skills &amp; hobby swap</li>
+            <li>Dad mental health check-ins</li>
+            <li>Weekend adventure planning</li>
+          </ul>
+          <a class="btn btn-circle btn-dad" href="https://chat.whatsapp.com/D6AjJvSx70iKmwtJgBJ6gC" target="_blank" rel="noopener noreferrer">💬 Join Dad Circle →</a>
+        </div>
+
+        <div class="circle-card reveal" style="--accent-c: var(--family)">
+          <div class="cc-top">
+            <span class="cc-emoji">🏡</span>
+            <div>
+              <h3>Family Circles</h3>
+              <small>Age-matched · Location-based</small>
+            </div>
+          </div>
+          <p>Whole families together. Weekend playdates, group outings, community events in your city.</p>
+          <ul class="cc-list">
+            <li>Weekend playdate calendar</li>
+            <li>Playdate Passport (gamified!)</li>
+            <li>Book &amp; baby gear swaps</li>
+            <li>New to the city? Fast track</li>
+            <li>Monsoon Mud Days &amp; themed events</li>
+          </ul>
+          <a class="btn btn-circle btn-family" href="https://chat.whatsapp.com/CUIkeWndHT6JJhYKLfPqWi" target="_blank" rel="noopener noreferrer">💬 Join Family Circle →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEETUPS ============ -->
+  <section class="section" id="meetups">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">This Weekend</div>
+        <h2>Upcoming meetups near you</h2>
+        <p>Real events, organized by parents like you.</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="filterMeetups('all', this)">All</button>
+        <button class="filter-btn" data-filter="playdate" onclick="filterMeetups('playdate', this)">🎠 Playdates</button>
+        <button class="filter-btn" data-filter="mom" onclick="filterMeetups('mom', this)">💕 Moms</button>
+        <button class="filter-btn" data-filter="dad" onclick="filterMeetups('dad', this)">💪 Dads</button>
+        <button class="filter-btn" data-filter="family" onclick="filterMeetups('family', this)">🏡 Family</button>
+      </div>
+      <div class="meetups-grid" id="meetupsGrid"></div>
+      <div class="meetups-footer">
+        <p>Sample events — join your circle to see real upcoming meetups in your area.</p>
+        <button class="btn btn-primary" onclick="openModal()">Find My Circle →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section section-light" id="features">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">What Makes Us Different</div>
+        <h2>Not your average parenting app</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feat-icon">🔄</div>
+          <h4>Mom Recharge Hours</h4>
+          <p>Take turns hosting each other's kids. You watch theirs — they watch yours. Two actual free hours every week.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🎖️</div>
+          <h4>Playdate Passport</h4>
+          <p>Kids collect stamps at each park and venue in your city. Parents level up too.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🌧️</div>
+          <h4>Monsoon Mud Days</h4>
+          <p>Let kids get delightfully dirty in the rain. Parents bond over chai. Because perfectly clean kids are overrated.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">❤️</div>
+          <h4>The Honest Hour</h4>
+          <p>Weekly anonymous check-in: "How are you REALLY doing?" — No toxic positivity, just real talk. 😴🆘😊</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🎨</div>
+          <h4>Skill Swap Saturdays</h4>
+          <p>Chef dad does a kids cooking class. Yoga mom teaches toddler stretches. Hidden talents, shared freely.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🚗</div>
+          <h4>School Commute Buddy</h4>
+          <p>Match with parents near the same school for carpools. Less traffic stress, more community on the daily commute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEIGHBORHOODS ============ -->
+  <section class="section" id="neighborhoods">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">Coverage</div>
+        <h2>Active neighborhoods</h2>
+        <p>Growing every week. Don't see your area? Join and start one.</p>
+      </div>
+      <div class="neighborhoods-grid" id="neighborhoodsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section section-light" id="testimonials">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">Real Stories</div>
+        <h2>Parents love their circles</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"I moved to a new city 8 months pregnant and knew nobody. SocialBling connected me with 6 first-time moms in my complex. My baby shower was thrown by people I met here."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--mom)">P</div>
+            <div>
+              <b>Priya M.</b>
+              <span>Mom of 14-month-old · Koramangala</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"The 5AM Dad Club is genuinely the best thing I do for mental health. We run, we don't talk about spreadsheets. The kids eventually wake up and join us. It's perfect."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--dad)">A</div>
+            <div>
+              <b>Arjun K.</b>
+              <span>Dad of 3-year-old · HSR Layout</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Mom Recharge Hours changed my life. Every 2nd Sunday I get 3 hours completely alone while my son plays at Meena's. I've cried from pure gratitude."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--family)">S</div>
+            <div>
+              <b>Sunita R.</b>
+              <span>Mom of 4-year-old · Indiranagar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section section-cta" id="cta">
+    <div class="container">
+      <div class="cta-box">
+        <span class="cta-badge">Free forever</span>
+        <h2>Your village is waiting.</h2>
+        <p>Join free. No app download. Find your circle in 60 seconds.</p>
+        <button class="btn btn-white btn-lg" onclick="openModal()">Find My Circle →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a href="#" class="logo">
+            <span class="logo-mark">🪺</span>
+            <span class="logo-name" style="color: white">SocialBling</span>
+          </a>
+          <p class="footer-tagline">Building parent communities across<br>India, one circle at a time.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h5>Community</h5>
+            <ul>
+              <li><a href="#circles">Mom Circles</a></li>
+              <li><a href="#circles">Dad Circles</a></li>
+              <li><a href="#meetups">Meetups</a></li>
+              <li><a href="#neighborhoods">Neighborhoods</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Info</h5>
+            <ul>
+              <li><a href="#">Community Guidelines</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Start a Circle</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SocialBling · Made with ❤️ in India · <em>it takes a village</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ GROUPS MODAL ============ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Join a WhatsApp Group">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
+      <div class="modal-step" id="allGroupsPanel">
+        <div class="modal-hdr">
+          <h3>&#x1F4AC; Join a WhatsApp Group</h3>
+          <p>All our active circles &#8212; tap any to open WhatsApp directly.</p>
+        </div>
+        <div class="ag-filter-bar">
+          <button class="ag-filter-btn active" onclick="filterGroups('all', this)">All</button>
+          <button class="ag-filter-btn" onclick="filterGroups('mom', this)">&#x1F495; Moms</button>
+          <button class="ag-filter-btn" onclick="filterGroups('dad', this)">&#x1F4AA; Dads</button>
+          <button class="ag-filter-btn" onclick="filterGroups('family', this)">&#x1F3E1; Family</button>
+          <button class="ag-filter-btn" onclick="filterGroups('playdate', this)">&#x1F3A0; Playdates</button>
+        </div>
+        <div id="allGroupsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
