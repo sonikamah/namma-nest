@@ -197,75 +197,7 @@ function openModal() {
   const overlay = document.getElementById('modalOverlay');
   if (overlay) overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  // Reset to step 1
-  kpGoTo(1);
-  const stepsPanel = document.getElementById('kittyStepsPanel');
-  const groupsPanel = document.getElementById('allGroupsPanel');
-  if (stepsPanel) stepsPanel.classList.remove('hidden');
-  if (groupsPanel) groupsPanel.classList.add('hidden');
-}
-
-function proceedToGroups() {
-  const stepsPanel = document.getElementById('kittyStepsPanel');
-  const groupsPanel = document.getElementById('allGroupsPanel');
-  if (stepsPanel) stepsPanel.classList.add('hidden');
-  if (groupsPanel) groupsPanel.classList.remove('hidden');
   renderAllGroups();
-}
-
-// ----- Kitty Party form steps -----
-let kpCurrentStep = 1;
-
-function kpGoTo(n) {
-  kpCurrentStep = n;
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById('kpStep' + i);
-    if (el) el.classList.toggle('hidden', i !== n);
-  }
-  document.querySelectorAll('.kp-dot').forEach(d => {
-    d.classList.toggle('active', parseInt(d.dataset.step) === n);
-    d.classList.toggle('done', parseInt(d.dataset.step) < n);
-  });
-}
-
-function kpNext(step) {
-  if (step === 1) {
-    const name = document.getElementById('kpName').value.trim();
-    if (!name) { showToast('Please enter your name 😊'); return; }
-  }
-  if (step === 2) {
-    const phone = document.getElementById('kpPhone').value.trim();
-    if (phone.length < 10) { showToast('Enter a valid 10-digit number 📱'); return; }
-  }
-  if (step === 3) {
-    // Build confirm summary
-    const name = document.getElementById('kpName').value.trim();
-    const phone = document.getElementById('kpPhone').value.trim();
-    const box = document.getElementById('kpConfirmBox');
-    if (box) box.innerHTML = `
-      <div class="kp-summary-row"><span>Name</span><b>${name}</b></div>
-      <div class="kp-summary-row"><span>WhatsApp</span><b>+91 ${phone}</b></div>
-      <div class="kp-summary-row"><span>Entry Fee</span><b>₹99 ✓</b></div>
-    `;
-  }
-  kpGoTo(step + 1);
-}
-
-function kpBack(step) {
-  kpGoTo(step - 1);
-}
-
-function kpMarkPaid() {
-  setTimeout(() => {
-    const btn = document.getElementById('kpPaidBtn');
-    if (btn) btn.style.display = 'block';
-  }, 1500);
-}
-
-function copyUpi() {
-  navigator.clipboard.writeText('socialbling@upi').then(() => {
-    showToast('UPI ID copied! 📋');
-  });
 }
 
 function closeModal() {

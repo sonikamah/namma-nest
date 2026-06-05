@@ -28,7 +28,7 @@
           <li><a href="#neighborhoods">Areas</a></li>
         </ul>
         <div class="nav-actions">
-          <button class="btn btn-primary" onclick="openModal()">Join Kitty Party →</button>
+          <a href="kitty.html" class="btn btn-primary">Join Kitty Party →</a>
           <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
@@ -366,88 +366,9 @@
 
   <!-- ============ GROUPS MODAL ============ -->
   <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Join Kitty Party">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Join a WhatsApp Group">
       <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
-
-      <!-- KITTY STEPS PANEL -->
-      <div class="modal-step" id="kittyStepsPanel">
-
-        <!-- Step progress dots -->
-        <div class="kp-dots" id="kpDots">
-          <span class="kp-dot active" data-step="1"></span>
-          <span class="kp-dot" data-step="2"></span>
-          <span class="kp-dot" data-step="3"></span>
-          <span class="kp-dot" data-step="4"></span>
-        </div>
-
-        <!-- Step 1: Name -->
-        <div class="kp-step" id="kpStep1">
-          <div class="modal-hdr">
-            <span class="step-label">Step 1 of 4</span>
-            <h3>👤 What's your name?</h3>
-            <p>Tell us what to call you in your Kitty circle.</p>
-          </div>
-          <div class="kp-field">
-            <label for="kpName">Full Name</label>
-            <input type="text" id="kpName" placeholder="e.g. Priya Sharma" autocomplete="name" />
-          </div>
-          <button class="btn btn-primary kp-next-btn" onclick="kpNext(1)">Next →</button>
-        </div>
-
-        <!-- Step 2: Phone -->
-        <div class="kp-step hidden" id="kpStep2">
-          <div class="modal-hdr">
-            <span class="step-label">Step 2 of 4</span>
-            <h3>📱 Your WhatsApp number</h3>
-            <p>We'll add you to your neighborhood Kitty circle.</p>
-          </div>
-          <div class="kp-field">
-            <label for="kpPhone">Phone Number</label>
-            <div class="kp-phone-row">
-              <span class="kp-flag">🇮🇳 +91</span>
-              <input type="tel" id="kpPhone" placeholder="98765 43210" maxlength="10" autocomplete="tel" />
-            </div>
-          </div>
-          <button class="btn btn-primary kp-next-btn" onclick="kpNext(2)">Next →</button>
-          <button class="kp-back-btn" onclick="kpBack(2)">← Back</button>
-        </div>
-
-        <!-- Step 3: Pay ₹99 -->
-        <div class="kp-step hidden" id="kpStep3">
-          <div class="modal-hdr">
-            <span class="step-label">Step 3 of 4</span>
-            <h3>💰 Pay ₹99 to join</h3>
-            <p>One-time entry fee. Goes into your first Kitty pot!</p>
-          </div>
-          <div class="kp-pay-box">
-            <div class="kp-amount">₹99</div>
-            <div class="kp-upi-label">Pay via GPay / PhonePe / UPI</div>
-            <div class="kp-upi-id" id="kpUpiId">socialbling@upi</div>
-            <button class="kp-copy-btn" onclick="copyUpi()">📋 Copy UPI ID</button>
-            <a class="btn btn-primary kp-gpay-btn" href="upi://pay?pa=socialbling@upi&pn=SocialBling&am=99&cu=INR&tn=Kitty+Party+Entry" onclick="kpMarkPaid()">
-              Open GPay →
-            </a>
-          </div>
-          <button class="btn btn-primary kp-next-btn" id="kpPaidBtn" onclick="kpNext(3)" style="display:none">I've Paid ✓ Continue →</button>
-          <button class="kp-back-btn" onclick="kpBack(3)">← Back</button>
-        </div>
-
-        <!-- Step 4: Confirm -->
-        <div class="kp-step hidden" id="kpStep4">
-          <div class="modal-hdr">
-            <span class="step-label">Step 4 of 4</span>
-            <h3>🎉 You're almost in!</h3>
-            <p>Choose your WhatsApp circle and introduce yourself.</p>
-          </div>
-          <div class="kp-confirm-box" id="kpConfirmBox"></div>
-          <button class="btn btn-primary kp-next-btn" onclick="proceedToGroups()">Find My WhatsApp Group →</button>
-          <button class="kp-back-btn" onclick="kpBack(4)">← Back</button>
-        </div>
-
-      </div>
-
-      <!-- ALL GROUPS PANEL -->
-      <div class="modal-step hidden" id="allGroupsPanel">
+      <div class="modal-step" id="allGroupsPanel">
         <div class="modal-hdr">
           <h3>&#x1F4AC; Join a WhatsApp Group</h3>
           <p>All our active circles &#8212; tap any to open WhatsApp directly.</p>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Kitty Party — SocialBling</title>
+  <meta name="theme-color" content="#F97316">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---- Reset ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #000;
+      color: #F1F5F9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+    /* ---- Variables ---- */
+    :root {
+      --primary: #F97316;
+      --primary-d: #EA580C;
+      --gold: #F59E0B;
+      --gold-d: #D97706;
+      --muted: #94A3B8;
+      --border: #1E2530;
+      --card: #13161d;
+      --r: 16px;
+      --r-lg: 24px;
+      --shadow-xl: 0 20px 40px rgba(0,0,0,0.7);
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 68px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 800; }
+    .logo span:first-child { font-size: 22px; }
+    .nav-back {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .nav-back:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 20px 24px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+    .price-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 50px;
+      padding: 10px 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 0 24px rgba(245,158,11,0.1);
+    }
+    .price-pill .price { font-size: 28px; font-weight: 800; color: var(--gold); }
+    .price-pill .price-label { font-size: 13px; color: var(--muted); line-height: 1.4; text-align: left; }
+    .price-pill .price-label b { display: block; color: white; }
+
+    /* ---- WHAT YOU GET ---- */
+    .perks {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+    .perk {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: rgba(255,255,255,0.65);
+    }
+    .perk span:first-child { font-size: 16px; }
+
+    /* ---- STEPS PROGRESS ---- */
+    .steps-progress {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      margin: 0 auto;
+      max-width: 520px;
+      padding: 12px 24px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #0d0f14;
+      border-bottom: 1px solid var(--border);
+    }
+    .sp-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .sp-step-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .sp-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+      border: 2px solid var(--border);
+      color: var(--muted);
+      background: var(--card);
+      flex-shrink: 0;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .sp-dot.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,158,11,0.15);
+      box-shadow: 0 0 0 4px rgba(245,158,11,0.12);
+    }
+    .sp-step:has(.sp-dot.active) .sp-step-label { color: var(--gold); }
+    .sp-dot.done { border-color: #22C55E; background: #22C55E; color: white; }
+    .sp-dot.done::after { content: '✓'; font-size: 16px; }
+    .sp-dot.done > span { display: none; }
+    .sp-step:has(.sp-dot.done) .sp-step-label { color: #22C55E; }
+    .sp-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+      margin-top: 19px;
+    }
+    .sp-line.done { background: #22C55E; }
+
+    /* ---- FORM CARD ---- */
+    .form-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+    }
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-xl);
+    }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .step-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .step-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .step-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+    /* ---- PAYMENT PANEL ---- */
+    .pay-methods { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .pay-method {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px;
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(255,255,255,0.02);
+    }
+    .pay-method:hover { border-color: var(--gold); background: rgba(245,158,11,0.04); }
+    .pay-method.selected { border-color: var(--gold); background: rgba(245,158,11,0.07); box-shadow: 0 0 16px rgba(245,158,11,0.1); }
+    .pay-icon { font-size: 24px; flex-shrink: 0; }
+    .pay-info b { display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .pay-info span { font-size: 12px; color: var(--muted); }
+    .pay-radio {
+      margin-left: auto;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .pay-method.selected .pay-radio { border-color: var(--gold); background: var(--gold); box-shadow: inset 0 0 0 3px var(--card); }
+    .upi-detail {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: var(--r);
+      padding: 16px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .upi-detail.show { display: block; }
+    .bank-chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--muted);
+    }
+    .bank-chip:hover { border-color: var(--gold); color: white; background: rgba(245,158,11,0.06); }
+    .bank-chip.selected { border-color: var(--gold); color: var(--gold); background: rgba(245,158,11,0.1); }
+    .upi-id {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .upi-note { font-size: 12px; color: var(--muted); }
+    .upi-copy {
+      margin-top: 10px;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.3);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .upi-copy:hover { background: rgba(245,158,11,0.25); }
+
+    /* ---- FORM FIELDS ---- */
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 7px; color: rgba(255,255,255,0.8); }
+    .field input, .field select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      font-size: 14px;
+      color: white;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input::placeholder { color: var(--muted); }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--gold); background: rgba(245,158,11,0.04); }
+    .field select option { background: #111318; color: white; }
+    .phone-wrap {
+      display: flex;
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .phone-wrap:focus-within { border-color: var(--gold); }
+    .phone-pre {
+      background: rgba(255,255,255,0.06);
+      border-right: 2px solid var(--border);
+      padding: 12px 14px;
+      font-size: 13px; font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex; align-items: center; flex-shrink: 0;
+    }
+    .phone-wrap input { border: none !important; background: transparent; flex: 1; }
+    .phone-wrap input:focus { border-color: transparent !important; }
+
+    /* ---- BUDGET CARDS ---- */
+    .budget-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .budget-card {
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(255,255,255,0.02);
+      position: relative;
+      overflow: hidden;
+    }
+    .budget-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+    }
+    .budget-card.tier-premium::before { background: linear-gradient(to bottom, #F59E0B, #F97316); }
+    .budget-card.tier-mid::before { background: linear-gradient(to bottom, #8B5CF6, #3B82F6); }
+    .budget-card.tier-budget::before { background: linear-gradient(to bottom, #10B981, #06B6D4); }
+    .budget-card:hover { transform: translateX(4px); }
+    .budget-card.selected.tier-premium { border-color: #F59E0B; background: rgba(245,158,11,0.07); box-shadow: 0 0 20px rgba(245,158,11,0.1); }
+    .budget-card.selected.tier-mid { border-color: #8B5CF6; background: rgba(139,92,246,0.07); box-shadow: 0 0 20px rgba(139,92,246,0.1); }
+    .budget-card.selected.tier-budget { border-color: #10B981; background: rgba(16,185,129,0.07); box-shadow: 0 0 20px rgba(16,185,129,0.1); }
+    .budget-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .budget-title { font-size: 15px; font-weight: 700; }
+    .budget-range {
+      font-size: 12px; font-weight: 700; padding: 3px 10px;
+      border-radius: 50px;
+    }
+    .tier-premium .budget-range { background: rgba(245,158,11,0.15); color: #F59E0B; }
+    .tier-mid .budget-range { background: rgba(139,92,246,0.15); color: #A78BFA; }
+    .tier-budget .budget-range { background: rgba(16,185,129,0.15); color: #34D399; }
+    .budget-venues {
+      font-size: 12px; color: var(--muted); line-height: 1.6;
+    }
+    .venue-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 1px 7px;
+      margin: 2px 2px 2px 0;
+      font-size: 11px;
+    }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 15px; font-weight: 700;
+      transition: all 0.2s;
+      width: 100%;
+      border: none; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-gold { background: linear-gradient(135deg, #F59E0B, #F97316); color: white; }
+    .btn-gold:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+    .btn-gold:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; filter: none; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 2px solid var(--border);
+      font-size: 14px;
+      padding: 11px 24px;
+      width: auto;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: white; }
+    .btn-row { display: flex; gap: 10px; align-items: center; }
+    .btn-row .btn-ghost { flex-shrink: 0; }
+
+    /* ---- SUCCESS SCREEN ---- */
+    .success-screen { text-align: center; }
+    .success-emoji { font-size: 64px; display: block; margin-bottom: 16px; animation: bounce 0.7s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes bounce {
+      0% { transform: scale(0) rotate(-10deg); }
+      70% { transform: scale(1.15) rotate(5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+    .success-screen h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+    .success-screen p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .assigned-group {
+      background: rgba(37,211,102,0.07);
+      border: 1px solid rgba(37,211,102,0.25);
+      border-radius: var(--r);
+      padding: 20px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .ag-label { font-size: 11px; font-weight: 700; color: #34D399; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .ag-name { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+    .ag-meta { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #25D366; color: white;
+      padding: 13px 24px;
+      border-radius: 50px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .wa-btn:hover { background: #20bb5a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+    .venues-preview {
+      text-align: left;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .venues-preview h4 { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .venue-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .venue-chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .back-home {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .back-home:hover { color: white; }
+
+    /* ---- TOAST ---- */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #1a1f2b;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--r);
+      font-size: 13px; font-weight: 500;
+      box-shadow: var(--shadow-xl);
+      z-index: 999;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      max-width: 300px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 480px) {
+      .form-card { padding: 24px 20px; }
+      .hero { padding: 48px 16px 40px; }
+      .nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      <span>🪺</span>
+      <span>SocialBling</span>
+    </a>
+    <a href="index.html" class="nav-back">← Back</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:18px;font-weight:800;letter-spacing:-0.5px">Join the <em style="font-style:normal;background:linear-gradient(135deg,var(--gold),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Kitty Party</em> Circle</div>
+      <div class="price-pill" style="margin-bottom:0">
+        <div class="price" style="font-size:20px">₹99</div>
+        <div class="price-label"><b>One-time registration</b>Free monthly meetups</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP PROGRESS -->
+  <div class="steps-progress" id="stepsProgress">
+    <div class="sp-step">
+      <div class="sp-dot active" id="dot1"><span>1</span></div>
+      <div class="sp-step-label">Payment</div>
+    </div>
+    <div class="sp-line" id="line1"></div>
+    <div class="sp-step">
+      <div class="sp-dot" id="dot2"><span>2</span></div>
+      <div class="sp-step-label">Details</div>
+    </div>
+    <div class="sp-line" id="line2"></div>
+    <div class="sp-step">
+      <div class="sp-dot" id="dot3"><span>3</span></div>
+      <div class="sp-step-label">Location</div>
+    </div>
+    <div class="sp-line" id="line3"></div>
+    <div class="sp-step">
+      <div class="sp-dot" id="dot4"><span>4</span></div>
+      <div class="sp-step-label">Budget</div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap">
+    <div class="form-card">
+
+      <!-- STEP 1: PAYMENT -->
+      <div class="step-panel active" id="panel1">
+        <div class="step-label">Step 1 of 4</div>
+        <div class="step-title">Pay ₹99 Registration</div>
+        <div class="step-sub">One-time fee to join your Kitty Party circle. No recurring charges — venues are split among members at each meetup.</div>
+
+        <div class="pay-methods">
+          <div class="pay-method" onclick="selectPayment('upi', this)">
+            <span class="pay-icon">📱</span>
+            <div class="pay-info"><b>UPI / GPay / PhonePe</b><span>Instant · No extra charges</span></div>
+            <div class="pay-radio"></div>
+          </div>
+          <div class="pay-method" onclick="selectPayment('qr', this)">
+            <span class="pay-icon">🔲</span>
+            <div class="pay-info"><b>Scan QR Code</b><span>Any UPI app · BHIM, GPay, PhonePe</span></div>
+            <div class="pay-radio"></div>
+          </div>
+          <div class="pay-method" onclick="selectPayment('paytm', this)">
+            <span class="pay-icon">💙</span>
+            <div class="pay-info"><b>Paytm Wallet</b><span>Send to Paytm number directly</span></div>
+            <div class="pay-radio"></div>
+          </div>
+        </div>
+
+        <div class="upi-detail" id="upiDetail">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Send ₹99 to</div>
+          <div class="upi-id" id="upiIdDisplay">namnest@upi</div>
+          <div class="upi-note">Open GPay / PhonePe → Pay → Enter UPI ID → ₹99 · Note: "Kitty Registration"</div>
+          <button class="upi-copy" onclick="navigator.clipboard.writeText('namnest@upi').then(()=>showToast('✓ UPI ID copied!'))">📋 Copy UPI ID</button>
+        </div>
+
+        <div class="upi-detail" id="paytmDetail">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Send ₹99 via Paytm to</div>
+          <div class="upi-id">7829347313</div>
+          <div class="upi-note">Open Paytm → Send Money → Enter number → ₹99 · Note: "Kitty Registration"</div>
+          <button class="upi-copy" onclick="navigator.clipboard.writeText('7829347313').then(()=>showToast('✓ Number copied!'))">📋 Copy Number</button>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div class="field" style="margin-bottom:14px">
+            <label style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Transaction / UTR Number <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="fUTR" placeholder="e.g. 123456789012" maxlength="22" oninput="checkPayment()"
+              style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:white;font-size:14px;font-family:inherit;width:100%;margin-top:6px">
+            <div style="font-size:11px;color:var(--muted);margin-top:5px">Found in your payment app under the transaction details</div>
+          </div>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--muted);line-height:1.5">
+            <input type="checkbox" id="payDone" onchange="checkPayment()" style="margin-top:3px;flex-shrink:0;accent-color:var(--gold)">
+            <span>I have completed the payment of ₹99</span>
+          </label>
+        </div>
+
+        <button class="btn btn-gold" id="s1Btn" onclick="goTo(2)" disabled>Continue → Enter Your Details</button>
+      </div>
+
+      <!-- STEP 2: DETAILS -->
+      <div class="step-panel" id="panel2">
+        <div class="step-label">Step 2 of 4</div>
+        <div class="step-title">Your Details</div>
+        <div class="step-sub">So we can place you in the right circle.</div>
+
+        <div class="field">
+          <label>Your name</label>
+          <input type="text" id="fName" placeholder="Priya / Sunita / Arjun" oninput="checkDetails()" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label>WhatsApp number</label>
+          <div class="phone-wrap">
+            <span class="phone-pre">🇮🇳 +91</span>
+            <input type="tel" id="fPhone" placeholder="98765 43210" maxlength="10" oninput="checkDetails()" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label>City</label>
+          <input type="text" id="fCity" placeholder="Bangalore / Mumbai / Pune..." oninput="checkDetails()" autocomplete="address-level2">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-ghost" onclick="goTo(1)">← Back</button>
+          <button class="btn btn-gold" id="s2Btn" onclick="goTo(3)" disabled style="flex:1">Continue → Pick Your Area</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: LOCATION -->
+      <div class="step-panel" id="panel3">
+        <div class="step-label">Step 3 of 4</div>
+        <div class="step-title">Your Neighborhood</div>
+        <div class="step-sub">We'll match you with parents nearby so meetups are easy to reach.</div>
+
+        <div class="field">
+          <label>Your area / neighborhood</label>
+          <input type="text" id="fArea" placeholder="e.g. Koramangala, HSR Layout, Indiranagar..." oninput="checkLocation()" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Preferred meetup day</label>
+          <select id="fDay" onchange="checkLocation()">
+            <option value="">Select a day</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Either">Either Saturday or Sunday</option>
+            <option value="Weekday evening">Weekday Evening</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-ghost" onclick="goTo(2)">← Back</button>
+          <button class="btn btn-gold" id="s3Btn" onclick="goTo(4)" disabled style="flex:1">Continue → Choose Budget</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: BUDGET -->
+      <div class="step-panel" id="panel4">
+        <div class="step-label">Step 4 of 4</div>
+        <div class="step-title">Monthly Kitty Budget</div>
+        <div class="step-sub">This decides the venues for your monthly meetups. Be honest — the goal is comfort, not show! 😄</div>
+
+        <div class="budget-grid" id="budgetGrid">
+
+          <div class="budget-card tier-premium" onclick="selectBudget('premium', this)">
+            <div class="budget-top">
+              <div class="budget-title">🥂 Premium Circle</div>
+              <div class="budget-range">₹3,000+ / month</div>
+            </div>
+            <div class="budget-venues">
+              Venues like:
+              <span class="venue-tag">Iron Hill</span>
+              <span class="venue-tag">Toit Brewpub</span>
+              <span class="venue-tag">The Fatty Bao</span>
+              <span class="venue-tag">Nasi & Mee</span>
+              <span class="venue-tag">Smoke House Deli</span>
+              <span class="venue-tag">Barbeque Nation</span>
+            </div>
+          </div>
+
+          <div class="budget-card tier-mid" onclick="selectBudget('mid', this)">
+            <div class="budget-top">
+              <div class="budget-title">🍽️ Mid Circle</div>
+              <div class="budget-range">₹1,500 – 3,000 / month</div>
+            </div>
+            <div class="budget-venues">
+              Venues like:
+              <span class="venue-tag">Farzi Cafe</span>
+              <span class="venue-tag">Punjab Grill</span>
+              <span class="venue-tag">Mainland China</span>
+              <span class="venue-tag">Chili's</span>
+              <span class="venue-tag">The Permit Room</span>
+              <span class="venue-tag">Soda Bottle Opener Wala</span>
+            </div>
+          </div>
+
+          <div class="budget-card tier-budget" onclick="selectBudget('budget', this)">
+            <div class="budget-top">
+              <div class="budget-title">🍜 Neighbourhood Circle</div>
+              <div class="budget-range">₹500 – 1,500 / month</div>
+            </div>
+            <div class="budget-venues">
+              Venues like:
+              <span class="venue-tag">Meghana Foods</span>
+              <span class="venue-tag">Truffles</span>
+              <span class="venue-tag">Brahmin's Coffee Bar</span>
+              <span class="venue-tag">Koshy's</span>
+              <span class="venue-tag">Udupi Palace</span>
+              <span class="venue-tag">Cafe Coffee Day</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-ghost" onclick="goTo(3)">← Back</button>
+          <button class="btn btn-gold" id="s4Btn" onclick="submitKitty()" disabled style="flex:1">🎉 Find My Kitty Circle!</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="step-panel" id="panelSuccess">
+        <div class="success-screen">
+          <span class="success-emoji">🥂</span>
+          <h2 id="successTitle">You're in!</h2>
+          <p id="successSub">Here's your Kitty Party circle:</p>
+
+          <div class="assigned-group">
+            <div class="ag-label">✓ Your Circle</div>
+            <div class="ag-name" id="assignedGroupName">Loading...</div>
+            <div class="ag-meta" id="assignedGroupMeta">Loading...</div>
+          </div>
+
+          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:18px 20px;margin-bottom:20px;text-align:left">
+            <div style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:6px">⏳ Payment Verification Pending</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7">We'll verify your payment within <b style="color:white">24 hours</b> and send you the WhatsApp group link via call or message on your registered number.</div>
+          </div>
+
+          <div class="venues-preview">
+            <h4>Your meetup venues</h4>
+            <div class="venue-list" id="venueList"></div>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:16px;text-align:left">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Quick tips</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8">
+              👋 Introduce yourself in the group<br>
+              📅 First meetup date is pinned in group<br>
+              💸 Venue cost is split equally each month<br>
+              🤝 Bring your most authentic self!
+            </div>
+          </div>
+
+          <a href="index.html" class="back-home">← Back to SocialBling home</a>
+
+          <a href="#" id="adminNotifyBtn" target="_blank" rel="noopener noreferrer"
+            style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:13px 20px;border-radius:10px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25D366;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s">
+            📨 Send Registration to Admin
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---- DATA ----
+    const TIERS = {
+      premium: {
+        label: '🥂 Premium Circle',
+        range: '₹3,000+/month',
+        venues: ['Iron Hill', 'Toit Brewpub', 'The Fatty Bao', 'Nasi & Mee', 'Smoke House Deli', 'Barbeque Nation', 'Hard Rock Cafe', 'Social'],
+        waLink: 'https://chat.whatsapp.com/CUIkeWndHT6JJhYKLfPqWi',
+      },
+      mid: {
+        label: '🍽️ Mid Circle',
+        range: '₹1,500–3,000/month',
+        venues: ['Farzi Cafe', 'Punjab Grill', 'Mainland China', 'Chili\'s', 'The Permit Room', 'Soda Bottle Opener Wala', 'Olive Beach'],
+        waLink: 'https://chat.whatsapp.com/E1V1TPo2nZ6H9nJiADyTWJ',
+      },
+      budget: {
+        label: '🍜 Neighbourhood Circle',
+        range: '₹500–1,500/month',
+        venues: ['Meghana Foods', 'Truffles', 'Brahmin\'s Coffee Bar', 'Koshy\'s', 'Udupi Palace', 'Cafe Coffee Day', 'Indian Coffee House'],
+        waLink: 'https://chat.whatsapp.com/D6AjJvSx70iKmwtJgBJ6gC',
+      },
+    };
+
+    // ---- STATE ----
+    let state = { payment: null, budget: null };
+    let currentStep = 1;
+
+    // ---- NAVIGATION ----
+    function goTo(n) {
+      document.getElementById('panel' + currentStep).classList.remove('active');
+      document.getElementById('panel' + n).classList.add('active');
+      updateProgress(currentStep, n);
+      currentStep = n;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgress(from, to) {
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById('dot' + i);
+        dot.classList.remove('active', 'done');
+        if (i < to) dot.classList.add('done');
+        else if (i === to) dot.classList.add('active');
+        if (i < 4) {
+          const line = document.getElementById('line' + i);
+          line.classList.toggle('done', i < to);
+        }
+      }
+    }
+
+    function formatCard(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 16);
+      input.value = v.replace(/(.{4})/g, '$1 ').trim();
+      checkPayment();
+    }
+    function formatExpiry(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 4);
+      if (v.length >= 3) v = v.substring(0,2) + ' / ' + v.substring(2);
+      input.value = v;
+      checkPayment();
+    }
+    function selectBank(el) {
+      document.querySelectorAll('.bank-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      checkPayment();
+    }
+
+    // ---- PAYMENT ----
+    function selectPayment(method, el) {
+      document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+      el.classList.add('selected');
+      state.payment = method;
+      document.getElementById('upiDetail').classList.toggle('show', method === 'upi' || method === 'qr');
+      document.getElementById('paytmDetail').classList.toggle('show', method === 'paytm');
+      checkPayment();
+    }
+
+    function checkPayment() {
+      const utr = (document.getElementById('fUTR')?.value || '').trim();
+      const checked = document.getElementById('payDone').checked;
+      const valid = state.payment && checked && utr.length >= 6;
+      document.getElementById('s1Btn').disabled = !valid;
+    }
+
+
+
+    // ---- DETAILS ----
+    function checkDetails() {
+      const name = document.getElementById('fName').value.trim();
+      const phone = document.getElementById('fPhone').value.trim();
+      const city = document.getElementById('fCity').value.trim();
+      document.getElementById('s2Btn').disabled = !(name.length >= 2 && phone.length >= 10 && city.length >= 2);
+    }
+
+    // ---- LOCATION ----
+    function checkLocation() {
+      const area = document.getElementById('fArea').value.trim();
+      const day = document.getElementById('fDay').value;
+      document.getElementById('s3Btn').disabled = !(area.length >= 2 && day);
+    }
+
+    // ---- BUDGET ----
+    function selectBudget(tier, el) {
+      document.querySelectorAll('.budget-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      state.budget = tier;
+      document.getElementById('s4Btn').disabled = false;
+    }
+
+    // ---- SUBMIT ----
+    function submitKitty() {
+      const name = document.getElementById('fName').value.trim();
+      const firstName = name.split(' ')[0];
+      const phone = document.getElementById('fPhone').value.trim();
+      const area = document.getElementById('fArea').value.trim();
+      const city = document.getElementById('fCity').value.trim();
+      const day = document.getElementById('fDay').value;
+      const tier = TIERS[state.budget];
+
+      const utr = document.getElementById('fUTR').value.trim();
+      const payMethod = state.payment === 'upi' ? 'UPI / GPay / PhonePe' : state.payment === 'qr' ? 'QR Code Scan' : 'Paytm Wallet';
+
+      // Build admin WhatsApp message
+      const msg = [
+        '🎉 *New Kitty Party Registration*',
+        '',
+        '👤 *Name:* ' + name,
+        '📱 *WhatsApp:* +91 ' + phone,
+        '🏙️ *City:* ' + city,
+        '📍 *Area:* ' + area,
+        '📅 *Meetup Day:* ' + day,
+        '💰 *Budget Tier:* ' + tier.label + ' (' + tier.range + ')',
+        '🏨 *Assigned Group:* ' + tier.label + ' — ' + area,
+        '',
+        '💳 *Payment:* ' + payMethod + ' • ₹99',
+        '🔖 *UTR / Txn ID:* ' + utr,
+        '',
+        '_Sent from SocialBling Kitty registration form_'
+      ].join('\n');
+      document.getElementById('adminNotifyBtn').href =
+        'https://wa.me/917829347313?text=' + encodeURIComponent(msg);
+
+      // Success screen
+      document.getElementById('successTitle').textContent = "You're in, " + firstName + "! 🎉";
+      document.getElementById('successSub').textContent = "Your Kitty Party circle in " + area + ", " + city + ":";
+      document.getElementById('assignedGroupName').textContent = tier.label + ' — ' + area;
+      document.getElementById('assignedGroupMeta').textContent = tier.range + ' · Meetups every ' + day;
+
+      // Venue chips
+      const venueList = document.getElementById('venueList');
+      venueList.innerHTML = tier.venues.map(v => `<span class="venue-chip">${v}</span>`).join('');
+
+      // Hide progress bar
+      document.getElementById('stepsProgress').style.display = 'none';
+
+      goToSuccess();
+    }
+
+    function goToSuccess() {
+      document.getElementById('panel' + currentStep).classList.remove('active');
+      document.getElementById('panelSuccess').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---- TOAST ----
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>
