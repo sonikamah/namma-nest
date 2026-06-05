@@ -366,9 +366,50 @@
 
   <!-- ============ GROUPS MODAL ============ -->
   <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Join a WhatsApp Group">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Join Kitty Party">
       <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
-      <div class="modal-step" id="allGroupsPanel">
+
+      <!-- KITTY STEPS PANEL -->
+      <div class="modal-step" id="kittyStepsPanel">
+        <div class="modal-hdr">
+          <h3>🪺 Join a Kitty Party</h3>
+          <p>4 simple steps to find your circle in Bangalore.</p>
+        </div>
+        <div class="kitty-steps">
+          <div class="kitty-step">
+            <div class="ks-num">1</div>
+            <div class="ks-body">
+              <div class="ks-title">Find Your Neighborhood</div>
+              <div class="ks-desc">Pick the WhatsApp group closest to where you live — we have 18 areas across Bangalore.</div>
+            </div>
+          </div>
+          <div class="kitty-step">
+            <div class="ks-num">2</div>
+            <div class="ks-body">
+              <div class="ks-title">Join the WhatsApp Circle</div>
+              <div class="ks-desc">Tap the group link, introduce yourself and your little one. You'll be welcomed within minutes.</div>
+            </div>
+          </div>
+          <div class="kitty-step">
+            <div class="ks-num">3</div>
+            <div class="ks-body">
+              <div class="ks-title">Attend Your First Kitty</div>
+              <div class="ks-desc">Show up to the next meetup in your area — chai, snacks, and parents who just get it.</div>
+            </div>
+          </div>
+          <div class="kitty-step">
+            <div class="ks-num">4</div>
+            <div class="ks-body">
+              <div class="ks-title">Invite 3 Parent Friends</div>
+              <div class="ks-desc">Share SocialBling with 3 parents you know. Help us grow every Kitty circle to 99 families! 🎯</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:24px;justify-content:center" onclick="proceedToGroups()">Find My WhatsApp Group →</button>
+      </div>
+
+      <!-- ALL GROUPS PANEL -->
+      <div class="modal-step hidden" id="allGroupsPanel">
         <div class="modal-hdr">
           <h3>&#x1F4AC; Join a WhatsApp Group</h3>
           <p>All our active circles &#8212; tap any to open WhatsApp directly.</p>

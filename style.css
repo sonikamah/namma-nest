@@ -861,6 +861,34 @@ input, textarea { font-family: inherit; }
 }
 .modal-hdr p { font-size: 14px; color: var(--muted); }
 
+/* Kitty Steps */
+.kitty-steps { display: flex; flex-direction: column; gap: 16px; }
+.kitty-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+  transition: border-color var(--t);
+}
+.kitty-step:hover { border-color: var(--primary); }
+.ks-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--mom));
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ks-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+.ks-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
 /* Type Grid */
 .type-grid {
   display: grid;

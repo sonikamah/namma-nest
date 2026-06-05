@@ -197,6 +197,18 @@ function openModal() {
   const overlay = document.getElementById('modalOverlay');
   if (overlay) overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Show steps first
+  const steps = document.getElementById('kittyStepsPanel');
+  const groups = document.getElementById('allGroupsPanel');
+  if (steps) steps.classList.remove('hidden');
+  if (groups) groups.classList.add('hidden');
+}
+
+function proceedToGroups() {
+  const steps = document.getElementById('kittyStepsPanel');
+  const groups = document.getElementById('allGroupsPanel');
+  if (steps) steps.classList.add('hidden');
+  if (groups) groups.classList.remove('hidden');
   renderAllGroups();
 }
 
