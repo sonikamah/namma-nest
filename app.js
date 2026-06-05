@@ -67,7 +67,7 @@ const MEETUPS = [
   },
   {
     id: 4, type: 'family',
-    title: 'Skill Swap — Kathak for Kids',
+    title: 'Skill Swap',
     emoji: '💃',
     location: "Sunita's home (shared on join)",
     area: 'Indiranagar',
@@ -170,7 +170,7 @@ const ALL_GROUPS = [
   },
   {
     emoji: '💃',
-    name: 'Skill Swap — Kathak for Kids',
+    name: 'Skill Swap',
     desc: 'Dance at home · Indiranagar · 4–8 yrs',
     tag: 'family',
     link: 'https://chat.whatsapp.com/K7vIP3BAsQQ0CZ0GkSXW0r',
