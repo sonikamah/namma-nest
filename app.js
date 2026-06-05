@@ -53,7 +53,7 @@ const MEETUPS = [
   },
   {
     id: 3, type: 'mom',
-    title: 'Mom Recharge Hour — Koramangala',
+    title: 'Mom Recharge Hour',
     emoji: '☕',
     location: "Meena's home, Koramangala 5th Block",
     area: 'Koramangala',
