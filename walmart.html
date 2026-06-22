@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect @ Walmart — Find Your Circle</title>
+  <meta name="theme-color" content="#0071CE">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #000d1a;
+      color: #E8F4FD;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+    :root {
+      --blue: #0071CE;
+      --blue-d: #0058a3;
+      --blue-l: #1a8de0;
+      --gold: #FFC220;
+      --gold-d: #e6ab00;
+      --dark: #000d1a;
+      --dark2: #001428;
+      --card: #001e36;
+      --card2: #00294a;
+      --border: #0a3a5c;
+      --muted: #6B9AB8;
+      --text: #E8F4FD;
+      --r: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+      --shadow-blue: 0 8px 32px rgba(0,113,206,0.3);
+      --shadow-gold: 0 8px 32px rgba(255,194,32,0.25);
+    }
+
+    /* ---- ANIMATED BACKGROUND ---- */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: drift 12s ease-in-out infinite;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(0,113,206,0.12); top: -200px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(255,194,32,0.08); top: 200px; right: -100px; animation-delay: -4s; }
+    .orb-3 { width: 500px; height: 500px; background: rgba(0,113,206,0.08); bottom: -150px; left: 30%; animation-delay: -8s; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 30px) scale(0.95); }
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 68px;
+      background: rgba(0,13,26,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,113,206,0.2);
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 18px; font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .spark {
+      width: 36px; height: 36px;
+      background: var(--blue);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: var(--shadow-blue);
+      animation: sparkPulse 3s ease-in-out infinite;
+    }
+    @keyframes sparkPulse {
+      0%, 100% { box-shadow: 0 0 16px rgba(0,113,206,0.4); }
+      50% { box-shadow: 0 0 32px rgba(0,113,206,0.7), 0 0 64px rgba(0,113,206,0.2); }
+    }
+    .logo-text { color: white; }
+    .logo-text span { color: var(--gold); }
+    .nav-badge {
+      background: rgba(0,113,206,0.15);
+      border: 1px solid rgba(0,113,206,0.3);
+      color: var(--blue-l);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,194,32,0.1);
+      border: 1px solid rgba(255,194,32,0.25);
+      color: var(--gold);
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: 12px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .hero h1 .blue { color: var(--blue-l); }
+    .hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffab00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    /* ---- EMAIL GATE ---- */
+    .email-gate {
+      background: rgba(0,30,54,0.8);
+      border: 1px solid rgba(0,113,206,0.3);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-blue), 0 0 0 1px rgba(0,113,206,0.1);
+    }
+    .gate-label {
+      font-size: 12px; font-weight: 800;
+      color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .email-input-row {
+      display: flex; gap: 10px;
+    }
+    .email-input-row input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 14px 18px;
+      font-size: 15px; color: white;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .email-input-row input::placeholder { color: var(--muted); }
+    .email-input-row input:focus { outline: none; border-color: var(--blue); background: rgba(0,113,206,0.06); }
+    .btn-join {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-d) 100%);
+      color: white;
+      padding: 14px 24px;
+      border-radius: var(--r);
+      font-size: 15px; font-weight: 800;
+      white-space: nowrap;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-blue);
+    }
+    .btn-join:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .gate-note {
+      margin-top: 12px;
+      font-size: 12px; color: var(--muted);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+
+    /* ---- STATS ---- */
+    .stats {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; gap: 0;
+      max-width: 600px; margin: 0 auto 64px;
+      background: rgba(0,20,40,0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .stat {
+      flex: 1; text-align: center;
+      padding: 20px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat b { display: block; font-size: 24px; font-weight: 900; color: white; letter-spacing: -1px; margin-bottom: 4px; }
+    .stat span { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* ---- CIRCLES SECTION ---- */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .sec-hdr { text-align: center; margin-bottom: 40px; }
+    .sec-tag {
+      display: inline-block;
+      background: rgba(0,113,206,0.12);
+      border: 1px solid rgba(0,113,206,0.25);
+      color: var(--blue-l);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .sec-hdr h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .sec-hdr p { font-size: 16px; color: var(--muted); }
+
+    /* ---- CIRCLES GRID ---- */
+    .circles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .circle-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .circle-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent, var(--blue)) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .circle-card:hover {
+      border-color: var(--accent, var(--blue));
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--accent, var(--blue));
+    }
+    .circle-card:hover::before { opacity: 0.06; }
+    .cc-top {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 14px;
+    }
+    .cc-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--accent-bg, rgba(0,113,206,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .cc-name { font-size: 17px; font-weight: 800; color: white; margin-bottom: 3px; }
+    .cc-meta { font-size: 12px; color: var(--muted); }
+    .cc-desc {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .cc-members {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .cc-members .dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; flex-shrink: 0; }
+    .btn-circle {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 13px; font-weight: 800;
+      color: white;
+      background: var(--accent, var(--blue));
+      transition: all 0.2s;
+      position: relative; z-index: 1;
+    }
+    .btn-circle:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+    /* ---- HOW IT WORKS ---- */
+    .how-section {
+      position: relative; z-index: 1;
+      background: rgba(0,20,40,0.5);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 24px;
+      margin-bottom: 0;
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .how-step { text-align: center; }
+    .how-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-d));
+      color: white;
+      font-size: 20px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: var(--shadow-blue);
+    }
+    .how-step h4 { font-size: 16px; font-weight: 800; color: white; margin-bottom: 8px; }
+    .how-step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer span { color: var(--gold); }
+
+    /* ---- MODAL ---- */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card2);
+      border: 1px solid rgba(0,113,206,0.3);
+      border-radius: var(--r-xl);
+      width: 100%; max-width: 440px;
+      padding: 32px;
+      position: relative;
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6), var(--shadow-blue);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: white; }
+    .modal-icon { font-size: 40px; margin-bottom: 12px; }
+    .modal h3 { font-size: 22px; font-weight: 900; color: white; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .modal p { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .modal-email-field {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 13px 16px;
+      font-size: 14px; color: white;
+      font-family: inherit;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .modal-email-field:focus { outline: none; border-color: var(--blue); }
+    .modal-email-field::placeholder { color: var(--muted); }
+    .btn-modal {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--r);
+      background: linear-gradient(135deg, var(--blue), var(--blue-d));
+      color: white;
+      font-size: 15px; font-weight: 800;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-blue);
+    }
+    .btn-modal:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .modal-slack-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px;
+      border-radius: var(--r);
+      background: #4A154B;
+      color: white; font-size: 15px; font-weight: 800;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(74,21,75,0.4);
+      text-decoration: none;
+    }
+    .modal-slack-btn:hover { background: #5a1a5c; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,21,75,0.5); }
+    .modal-wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px; margin-top: 10px;
+      border-radius: var(--r);
+      background: #25D366;
+      color: white; font-size: 15px; font-weight: 800;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+      text-decoration: none;
+    }
+    .modal-wa-btn:hover { background: #20bb5a; transform: translateY(-2px); }
+    .or-divider { text-align: center; color: var(--muted); font-size: 12px; margin: 12px 0; position: relative; }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%; width: 40%;
+      height: 1px; background: var(--border);
+    }
+    .or-divider::before { left: 0; }
+    .or-divider::after { right: 0; }
+
+    /* ---- TOAST ---- */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--r);
+      font-size: 13px; font-weight: 600;
+      z-index: 999;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      max-width: 300px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .nav { padding: 0 16px; }
+      .hero { padding: 56px 16px 40px; }
+      .email-input-row { flex-direction: column; }
+      .stats { flex-wrap: wrap; }
+      .stat { min-width: 45%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="logo">
+      <div class="spark">✦</div>
+      <div class="logo-text">Walmart <span>Connect</span></div>
+    </div>
+    <div class="nav-badge">🔒 WGT Bangalore · Internal</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Walmart Global Tech · Bangalore</div>
+    <h1>
+      Find your<br>
+      <span class="blue">people</span> at
+      <span class="gold">Walmart</span>
+    </h1>
+    <p class="hero-sub">
+      Join circles with fellow Walmart associates who share your interests, stage of life, or goals. Real connections, right in Slack.
+    </p>
+
+    <!-- Email Gate -->
+    <div class="email-gate">
+      <span class="gate-label">🔐 Associate Access — Walmart email required</span>
+      <div class="email-input-row">
+        <input type="email" id="heroEmail" placeholder="yourname@walmart.com" autocomplete="email" onkeydown="if(event.key==='Enter')heroJoin()">
+        <button class="btn-join" onclick="heroJoin()">Find My Circle →</button>
+      </div>
+      <p class="gate-note">🔒 Only @walmart.com emails accepted · Free for all associates</p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats" style="position:relative;z-index:1;max-width:600px;margin:0 auto 64px;">
+    <div class="stat"><b>12,000+</b><span>WGT Associates</span></div>
+    <div class="stat"><b>24</b><span>Active Circles</span></div>
+    <div class="stat"><b>8</b><span>Interest Areas</span></div>
+    <div class="stat"><b>Free</b><span>Always</span></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <div class="sec-hdr" style="max-width:600px;margin:0 auto 40px;">
+      <div class="sec-tag">How it works</div>
+      <h2>3 steps to your circle</h2>
+      <p>Join in under 60 seconds with your Walmart email.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Verify with Walmart Email</h4>
+        <p>Enter your @walmart.com email. Only Walmart associates can access.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Pick Your Circles</h4>
+        <p>Parents, runners, foodies, gamers — join any circles that feel like you.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Join on Slack or WhatsApp</h4>
+        <p>Get the link, say hello, and find your people at Walmart.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CIRCLES -->
+  <section class="section" style="padding-top: 64px;">
+    <div class="sec-hdr">
+      <div class="sec-tag">Active Circles · WGT Bangalore</div>
+      <h2>Find your circle</h2>
+      <p>Groups for every interest, life stage & goal. You belong here.</p>
+    </div>
+
+    <div class="circles-grid" id="circlesGrid">
+
+      <div class="circle-card" style="--accent:#EC4899;--accent-bg:rgba(236,72,153,0.12)" onclick="openJoin('Parent Circle','👶','For working parents — childcare swaps, school tips, parenting hacks','#wgt-parent-circle','https://chat.whatsapp.com/CUIkeWndHT6JJhYKLfPqWi')">
+        <div class="cc-top">
+          <div class="cc-icon">👶</div>
+          <div>
+            <div class="cc-name">Parent Circle</div>
+            <div class="cc-meta">Working Parents · All ages</div>
+          </div>
+        </div>
+        <p class="cc-desc">Swap childcare tips, find school recommendations, share WFH + parenting hacks. No judgment, just real talk.</p>
+        <div class="cc-members"><div class="dot"></div> 234 members · Very active</div>
+        <button class="btn-circle" style="background:#EC4899">💕 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#3B82F6;--accent-bg:rgba(59,130,246,0.12)" onclick="openJoin('Morning Movers','🏃','5AM run & walk club at Cubbon Park and nearby areas','#wgt-morning-movers','')">
+        <div class="cc-top">
+          <div class="cc-icon">🏃</div>
+          <div>
+            <div class="cc-name">Morning Movers</div>
+            <div class="cc-meta">5AM Run Club · Weekdays</div>
+          </div>
+        </div>
+        <p class="cc-desc">Early morning runs, walks and cycling at Cubbon Park, Koramangala track & beyond. No pace requirement — just show up.</p>
+        <div class="cc-members"><div class="dot"></div> 87 members · Active</div>
+        <button class="btn-circle" style="background:#3B82F6">🏃 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#F59E0B;--accent-bg:rgba(245,158,11,0.12)" onclick="openJoin('Lunch Collective','🍱','Daily lunch groups by area — Koramangala, Embassy Tech Square','#wgt-lunch-collective','')">
+        <div class="cc-top">
+          <div class="cc-icon">🍱</div>
+          <div>
+            <div class="cc-name">Lunch Collective</div>
+            <div class="cc-meta">Daily · Office & Remote</div>
+          </div>
+        </div>
+        <p class="cc-desc">Find lunch buddies near your office block or neighborhood. Restaurant explorers welcome. Daily "where are we eating?" polls.</p>
+        <div class="cc-members"><div class="dot"></div> 312 members · Very active</div>
+        <button class="btn-circle" style="background:#F59E0B;color:#000">🍱 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#22C55E;--accent-bg:rgba(34,197,94,0.12)" onclick="openJoin('New Joiners Hub','🚀','0–90 day buddy network for new Walmart associates','#wgt-new-joiners','')">
+        <div class="cc-top">
+          <div class="cc-icon">🚀</div>
+          <div>
+            <div class="cc-name">New Joiners Hub</div>
+            <div class="cc-meta">First 90 Days · Buddy System</div>
+          </div>
+        </div>
+        <p class="cc-desc">Just joined Walmart? Get matched with a buddy who's been here 1+ year. Ask anything, no question is too small.</p>
+        <div class="cc-members"><div class="dot"></div> 156 members · Active</div>
+        <button class="btn-circle" style="background:#22C55E">🚀 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#8B5CF6;--accent-bg:rgba(139,92,246,0.12)" onclick="openJoin('Women in Tech','👩‍💻','Community for women engineers and leaders at WGT','#wgt-women-in-tech','')">
+        <div class="cc-top">
+          <div class="cc-icon">👩‍💻</div>
+          <div>
+            <div class="cc-name">Women in Tech</div>
+            <div class="cc-meta">Community · Mentorship</div>
+          </div>
+        </div>
+        <p class="cc-desc">Mentorship, career growth, honest conversations and real support for women engineers and leaders at Walmart Global Tech.</p>
+        <div class="cc-members"><div class="dot"></div> 198 members · Very active</div>
+        <button class="btn-circle" style="background:#8B5CF6">👩‍💻 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#06B6D4;--accent-bg:rgba(6,182,212,0.12)" onclick="openJoin('Wellness Warriors','🧘','Mental health, meditation, yoga and stress-free Fridays','#wgt-wellness','')">
+        <div class="cc-top">
+          <div class="cc-icon">🧘</div>
+          <div>
+            <div class="cc-name">Wellness Warriors</div>
+            <div class="cc-meta">Mental Health · Yoga · Mindfulness</div>
+          </div>
+        </div>
+        <p class="cc-desc">Weekly meditation check-ins, yoga sessions, burnout-free Fridays and real conversations about mental health at work.</p>
+        <div class="cc-members"><div class="dot"></div> 143 members · Active</div>
+        <button class="btn-circle" style="background:#06B6D4">🧘 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#F97316;--accent-bg:rgba(249,115,22,0.12)" onclick="openJoin('Foodies @ WGT','🍕','Restaurant explorers, home cooks and food obsessives','#wgt-foodies','')">
+        <div class="cc-top">
+          <div class="cc-icon">🍕</div>
+          <div>
+            <div class="cc-name">Foodies @ WGT</div>
+            <div class="cc-meta">Restaurant Explorers · Recipes</div>
+          </div>
+        </div>
+        <p class="cc-desc">Bangalore restaurant reviews, potluck cooking challenges, hidden gem recommendations and monthly foodie meetups.</p>
+        <div class="cc-members"><div class="dot"></div> 267 members · Very active</div>
+        <button class="btn-circle" style="background:#F97316">🍕 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#10B981;--accent-bg:rgba(16,185,129,0.12)" onclick="openJoin('Gamers Guild','🎮','Weekend gaming, tournaments and LAN party organizers','#wgt-gamers','')">
+        <div class="cc-top">
+          <div class="cc-icon">🎮</div>
+          <div>
+            <div class="cc-name">Gamers Guild</div>
+            <div class="cc-meta">Weekend Gaming · Tournaments</div>
+          </div>
+        </div>
+        <p class="cc-desc">Weekend game nights, BGMI squads, chess tournaments and tabletop game sessions. Casual and competitive welcome.</p>
+        <div class="cc-members"><div class="dot"></div> 119 members · Active</div>
+        <button class="btn-circle" style="background:#10B981">🎮 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#EC4899;--accent-bg:rgba(236,72,153,0.1)" onclick="openJoin('Book Club','📚','Monthly reads, fiction & non-fiction, discussion sessions','#wgt-book-club','')">
+        <div class="cc-top">
+          <div class="cc-icon">📚</div>
+          <div>
+            <div class="cc-name">Book Club</div>
+            <div class="cc-meta">Monthly Reads · All Genres</div>
+          </div>
+        </div>
+        <p class="cc-desc">Monthly book picks voted by members. Fiction, non-fiction, tech — all welcome. Monthly Sunday discussion sessions.</p>
+        <div class="cc-members"><div class="dot"></div> 78 members · Active</div>
+        <button class="btn-circle" style="background:#EC4899">📚 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#0071CE;--accent-bg:rgba(0,113,206,0.12)" onclick="openJoin('Sustainability Squad','🌱','Eco-conscious associates making WGT a greener place','#wgt-sustainability','')">
+        <div class="cc-top">
+          <div class="cc-icon">🌱</div>
+          <div>
+            <div class="cc-name">Sustainability Squad</div>
+            <div class="cc-meta">Green Initiatives · Carpooling</div>
+          </div>
+        </div>
+        <p class="cc-desc">Carpool matching, campus green drives, plant swaps and Walmart's internal sustainability challenges. Make WGT greener.</p>
+        <div class="cc-members"><div class="dot"></div> 92 members · Active</div>
+        <button class="btn-circle" style="background:#0071CE">🌱 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#F59E0B;--accent-bg:rgba(245,158,11,0.1)" onclick="openJoin('Music & Arts','🎵','Band mates, artists, open mic nights and creative souls','#wgt-music-arts','')">
+        <div class="cc-top">
+          <div class="cc-icon">🎵</div>
+          <div>
+            <div class="cc-name">Music & Arts</div>
+            <div class="cc-meta">Band · Open Mic · Sketching</div>
+          </div>
+        </div>
+        <p class="cc-desc">Find your band mates, art collaborators and open mic partners. Monthly creative sessions on and off campus.</p>
+        <div class="cc-members"><div class="dot"></div> 64 members · Growing</div>
+        <button class="btn-circle" style="background:#F59E0B;color:#000">🎵 Join Circle</button>
+      </div>
+
+      <div class="circle-card" style="--accent:#3B82F6;--accent-bg:rgba(59,130,246,0.1)" onclick="openJoin('Sports Fans','🏏','Cricket, football, badminton — watchers and players both','#wgt-sports','')">
+        <div class="cc-top">
+          <div class="cc-icon">🏏</div>
+          <div>
+            <div class="cc-name">Sports Fans</div>
+            <div class="cc-meta">Cricket · Football · Badminton</div>
+          </div>
+        </div>
+        <p class="cc-desc">Match-day watch parties, weekend cricket & badminton, IPL fantasy leagues and friendly sports tournaments within WGT.</p>
+        <div class="cc-members"><div class="dot"></div> 188 members · Very active</div>
+        <button class="btn-circle" style="background:#3B82F6">🏏 Join Circle</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Walmart Connect · WGT Bangalore · Built with <span>♥</span> for associates · Internal use only</p>
+  </footer>
+
+  <!-- JOIN MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-icon" id="mIcon">👶</div>
+      <h3 id="mName">Circle Name</h3>
+      <p id="mDesc">Description</p>
+
+      <div id="stepEmail">
+        <input type="email" class="modal-email-field" id="mEmail" placeholder="yourname@walmart.com" onkeydown="if(event.key==='Enter')verifyEmail()">
+        <button class="btn-modal" onclick="verifyEmail()">Verify & Continue →</button>
+      </div>
+
+      <div id="stepLinks" style="display:none">
+        <div style="font-size:13px;color:#22C55E;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:6px">✓ <span id="verifiedEmail"></span> verified</div>
+        <a id="slackBtn" href="#" target="_blank" rel="noopener" class="modal-slack-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M6.5 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 2a2.5 2.5 0 0 0-2.5 2.5V17h5v-1.5A2.5 2.5 0 0 0 6.5 13zm11-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 2a2.5 2.5 0 0 0-2.5 2.5V17h5v-1.5A2.5 2.5 0 0 0 17.5 13zM12 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 2a2.5 2.5 0 0 0-2.5 2.5V17h5v-1.5A2.5 2.5 0 0 0 12 13z"/></svg>
+          Join on Slack
+        </a>
+        <div class="or-divider">or</div>
+        <a id="waBtn" href="#" target="_blank" rel="noopener" class="modal-wa-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.555 4.116 1.523 5.847L.057 23.571l5.893-1.544A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.658-.523-5.168-1.432l-.37-.22-3.497.917.933-3.41-.24-.385A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Join on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    function heroJoin() {
+      const email = document.getElementById('heroEmail').value.trim().toLowerCase();
+      if (!email.endsWith('@walmart.com')) {
+        showToast('⚠️ Please use your @walmart.com email');
+        return;
+      }
+      document.querySelector('.circles-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast('✅ ' + email + ' verified! Pick your circles below.');
+    }
+
+    let currentCircle = {};
+
+    function openJoin(name, icon, desc, slackChannel, waLink) {
+      currentCircle = { name, icon, desc, slackChannel, waLink };
+      document.getElementById('mIcon').textContent = icon;
+      document.getElementById('mName').textContent = name;
+      document.getElementById('mDesc').textContent = desc;
+      document.getElementById('mEmail').value = '';
+      document.getElementById('stepEmail').style.display = 'block';
+      document.getElementById('stepLinks').style.display = 'none';
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('mEmail').focus(), 100);
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function verifyEmail() {
+      const email = document.getElementById('mEmail').value.trim().toLowerCase();
+      if (!email.endsWith('@walmart.com')) {
+        showToast('⚠️ Only @walmart.com emails allowed');
+        return;
+      }
+      document.getElementById('verifiedEmail').textContent = email;
+      const slack = 'https://walmart.slack.com/app_redirect?channel=' + currentCircle.slackChannel.replace('#','');
+      document.getElementById('slackBtn').href = slack;
+      document.getElementById('waBtn').href = currentCircle.waLink || '#';
+      if (!currentCircle.waLink) {
+        document.getElementById('waBtn').style.display = 'none';
+        document.querySelector('.or-divider').style.display = 'none';
+      } else {
+        document.getElementById('waBtn').style.display = 'flex';
+        document.querySelector('.or-divider').style.display = 'block';
+      }
+      document.getElementById('stepEmail').style.display = 'none';
+      document.getElementById('stepLinks').style.display = 'block';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

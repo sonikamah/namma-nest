@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>if(location.protocol!=='https:'&&location.protocol!=='file:'&&location.hostname!=='localhost')location.replace('https:'+window.location.href.substring(window.location.protocol.length));</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialBling — Walmart Associate Community · WGT Bangalore</title>
+  <meta name="description" content="Join verified circles with your Walmart colleagues — morning runners, lunch groups, new joiner pods, parent circles & more. Your @walmart.com email is your key.">
+  <meta name="theme-color" content="#0071CE">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- Circle filter states ---- */
+    #circlesGrid .circle-card {
+      transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    }
+    #circlesGrid.has-selection .circle-card:not(.circle-selected) {
+      opacity: 0.18;
+      transform: scale(0.96);
+      filter: grayscale(0.6);
+      pointer-events: none;
+    }
+    #circlesGrid.has-selection .circle-card.circle-selected {
+      box-shadow: 0 0 0 2px var(--accent-c, #0071CE), 0 24px 64px rgba(0,113,206,0.25);
+    }
+    .circle-reset-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .circle-reset-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+    /* ---- Slack join button ---- */
+    a.meetup-rsvp.slack-join-btn,
+    .slack-join-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      background: #4A154B;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .slack-join-btn:hover {
+      background: #611f69;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">
+          <span class="logo-mark">🪺</span>
+          <span class="logo-name">SocialBling</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#circles">Circles</a></li>
+          <li><a href="#meetups">Events</a></li>
+          <li><a href="#neighborhoods">Teams</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="btn btn-primary" onclick="openModal()">Join a Circle →</button>
+          <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="badge">🔵 Associate Community · WGT Bangalore</div>
+          <h1>Find your <em>crew</em>,<br>thrive at work together</h1>
+          <p class="hero-sub">Join verified circles with your Walmart colleagues — morning runners, lunch squads, new joiner pods, parent circles &amp; more. Your @walmart.com email is your key.</p>
+          <div class="hero-btns">
+            <a href="#circles" class="btn btn-primary btn-lg">Explore Our Circles ↓</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>800+</b><span>Associates</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>5</b><span>Circles</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>13</b><span>Channels</span></div>
+            <div class="stat-sep"></div>
+            <div class="stat"><b>4.8★</b><span>Rating</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="wa-header">
+                <div class="wa-avatar">🏃</div>
+                <div class="wa-info">
+                  <b>WGT Morning Movers</b>
+                  <span>62 members</span>
+                </div>
+                <div class="wa-dots">⋮</div>
+              </div>
+              <div class="wa-messages">
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">Hey everyone! Just joined last week 👋 Supply Chain team, Floor 4</div>
+                  <div class="wa-name">Rahul</div>
+                </div>
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">Welcome Rahul! 🙌 We run at 6AM from Gate 2 — come tomorrow!</div>
+                  <div class="wa-name">Sneha</div>
+                </div>
+                <div class="wa-msg wa-msg-me">
+                  <div class="wa-bubble">Finally found my people here 😄 See you at 6!</div>
+                </div>
+                <div class="wa-reactions">
+                  <span>🔥 18</span>
+                  <span>👟 9</span>
+                </div>
+                <div class="wa-msg wa-msg-other">
+                  <div class="wa-bubble">📍 6AM · Gate 2 · WGT Campus. Don't be late 😄</div>
+                  <div class="wa-name">Sneha</div>
+                </div>
+              </div>
+              <div class="wa-input-bar">
+                <span class="wa-input-placeholder">Type a message</span>
+                <span class="wa-send">➤</span>
+              </div>
+            </div>
+          </div>
+          <div class="float-card fc-1">
+            <span>☕</span>
+            <div><b>Lunch Collective</b><small>Floor 6 · 1PM today</small></div>
+          </div>
+          <div class="float-card fc-2">
+            <span>🏃</span>
+            <div><b>Morning Movers</b><small>62 associates · 6AM</small></div>
+          </div>
+          <div class="float-card fc-3">
+            <span>🌟</span>
+            <div><b>New Joiners Hub</b><small>3 spots open!</small></div>
+          </div>
+          <div class="float-card fc-4">
+            <span>👩‍💻</span>
+            <div><b>Women in Tech</b><small>Tech talk Friday!</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIRCLES ============ -->
+  <section class="section section-dark" id="circles">
+    <div class="container">
+      <div class="sec-hdr sec-hdr-light">
+        <div class="badge badge-outline">Our Communities</div>
+        <h2 class="light">Five circle types, one campus</h2>
+        <p class="light">Find your people by interest, life stage, or goal — all verified @walmart.com associates.</p>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px;min-height:32px" id="circleResetRow"></div>
+      <div class="circles-grid" id="circlesGrid">
+
+        <div class="circle-card reveal" data-circle="family" data-meetup-filter="family" style="--accent-c: var(--kids);cursor:pointer" onclick="selectCircle(this)">
+          <div class="cc-top">
+            <span class="cc-emoji">👨‍👩‍👧</span>
+            <div>
+              <h3>Family Circle</h3>
+              <small>Outings · Nature · Kids & Parents</small>
+            </div>
+          </div>
+          <p>Weekend adventures for WGT families. Park mornings, nature day trips, and kid-friendly Bangalore spots — all organized by parents who live it every weekend.</p>
+          <ul class="cc-list">
+            <li>Cubbon Park picnics &amp; Sunday morning walks</li>
+            <li>Lalbagh trails — families &amp; strollers welcome</li>
+            <li>Bannerghatta safari &amp; butterfly park</li>
+            <li>Nandi Hills sunrise drive convoy</li>
+            <li>Science Centre kids day — planetarium &amp; exhibits</li>
+          </ul>
+          <button class="btn btn-circle btn-kids" onclick="event.stopPropagation();openModalFiltered('family')">💬 Join Family Circle →</button>
+        </div>
+
+        <div class="circle-card reveal" data-circle="mom" data-meetup-filter="mom" style="--accent-c: var(--mom);cursor:pointer" onclick="selectCircle(this)">
+          <div class="cc-top">
+            <span class="cc-emoji">🤱</span>
+            <div>
+              <h3>Mom Circle</h3>
+              <small>Postpartum · Pregnancy · Playdates</small>
+            </div>
+          </div>
+          <p>For WGT moms at every stage — expecting, newborn chaos, or toddler tantrums. A safe, judgment-free space to ask anything, share everything, and breathe.</p>
+          <ul class="cc-list">
+            <li>Postpartum support — back at work &amp; surviving</li>
+            <li>Pregnancy tips — hospitals, leave planning &amp; more</li>
+            <li>Baby care Q&amp;A — pediatricians, sleep schedules</li>
+            <li>Mom's kids playdate — Ulsoor Lake, Saturdays</li>
+          </ul>
+          <button class="btn btn-circle btn-mom" onclick="event.stopPropagation();openModalFiltered('mom')">💬 Join Mom Circle →</button>
+        </div>
+
+        <div class="circle-card reveal" data-circle="dad" data-meetup-filter="dad" style="--accent-c: var(--dad);cursor:pointer" onclick="selectCircle(this)">
+          <div class="cc-top">
+            <span class="cc-emoji">🏸</span>
+            <div>
+              <h3>Dad Circle</h3>
+              <small>Sports · Play · Dad Life</small>
+            </div>
+          </div>
+          <p>WGT dads who play hard and parent harder. Hit the court, the pitch, or the park — connect with dads who get it, before the workday begins.</p>
+          <ul class="cc-list">
+            <li>Badminton Thursdays — 7AM indoor court · all levels</li>
+            <li>Weekend Cricket League — teams of 11 · WGT ground</li>
+            <li>Dad's kids playdate — Cubbon Park, Sundays</li>
+          </ul>
+          <button class="btn btn-circle btn-dad" onclick="event.stopPropagation();openModalFiltered('dad')">💬 Join Dad Circle →</button>
+        </div>
+
+        <div class="circle-card reveal" data-circle="tech" data-meetup-filter="tech" style="--accent-c: var(--tech);cursor:pointer" onclick="selectCircle(this)">
+          <div class="cc-top">
+            <span class="cc-emoji">🤖</span>
+            <div>
+              <h3>Tech Circle</h3>
+              <small>GenAI · Conferences · Future of Work</small>
+            </div>
+          </div>
+          <p>For the engineers, PMs, and data folks who can't stop thinking about what's next. Monthly talks, GenAI deep dives, and conference debriefs — all inside WGT.</p>
+          <ul class="cc-list">
+            <li>Monthly GenAI &amp; LLM speaker series</li>
+            <li>Conference trip planning &amp; talk summaries</li>
+            <li>AI tools, demos &amp; what's shipping at Walmart</li>
+          </ul>
+          <button class="btn btn-circle btn-tech" onclick="event.stopPropagation();openModalFiltered('tech')">💬 Join Tech Circle →</button>
+        </div>
+
+        <div class="circle-card reveal" data-circle="joiner" data-meetup-filter="joiner" style="--accent-c: var(--joiner);cursor:pointer" onclick="selectCircle(this)">
+          <div class="cc-top">
+            <span class="cc-emoji">🌟</span>
+            <div>
+              <h3>New Joiners</h3>
+              <small>Onboarding · Buddies · First 90 Days</small>
+            </div>
+          </div>
+          <p>Just joined WGT? This is your circle. Find your buddy, learn the unwritten rules, discover the best chai spots, and feel at home before your first 30 days are done.</p>
+          <ul class="cc-list">
+            <li>30-day buddy system — matched by team &amp; floor</li>
+            <li>Monthly new joiner mixer — July batch open now</li>
+            <li>WGT orientation: best spots, shortcuts &amp; who to ping</li>
+          </ul>
+          <button class="btn btn-circle btn-joiner" onclick="event.stopPropagation();openModalFiltered('joiner')">💬 Join New Joiners →</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEETUPS ============ -->
+  <section class="section" id="meetups">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">This Week at WGT</div>
+        <h2>Upcoming circle events</h2>
+        <p>Work events, family outings & kid-friendly Bangalore meetups — all organized by WGT associates.</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="filterMeetups('all', this)">All</button>
+        <button class="filter-btn" data-filter="family" onclick="filterMeetups('family', this)">👨‍👩‍👧 Family</button>
+        <button class="filter-btn" data-filter="mom" onclick="filterMeetups('mom', this)">🤱 Mom Circle</button>
+        <button class="filter-btn" data-filter="dad" onclick="filterMeetups('dad', this)">🏸 Dad Circle</button>
+        <button class="filter-btn" data-filter="tech" onclick="filterMeetups('tech', this)">🤖 Tech Circle</button>
+        <button class="filter-btn" data-filter="joiner" onclick="filterMeetups('joiner', this)">🌟 New Joiners</button>
+      </div>
+      <div class="meetups-grid" id="meetupsGrid"></div>
+      <div class="meetups-footer">
+        <p>Sample events — click a circle card above to explore channels and join on Slack.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section section-light" id="features">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">What Makes Us Different</div>
+        <h2>Community built for where you work</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feat-icon">🔐</div>
+          <h4>@walmart.com Verified</h4>
+          <p>Every member is a verified Walmart associate. No outsiders, no strangers — only your actual colleagues.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🌟</div>
+          <h4>New Joiner Fast Track</h4>
+          <p>Matched with a 30-day buddy from your team. Know where the best chai is and who to ping for help — from day one.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">💬</div>
+          <h4>Slack + WhatsApp</h4>
+          <p>Connect where you already work. Circles live in WhatsApp for casual chat and Slack for work-adjacent coordination.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">🎯</div>
+          <h4>Interest Matching</h4>
+          <p>Tell us what you care about. We match you with circles across teams and floors — not just the people you already sit near.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">💚</div>
+          <h4>Wellness Check-ins</h4>
+          <p>Anonymous weekly pulse: "How are you really?" Real support, no performance. Because burnout is real and you deserve better.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feat-icon">☕</div>
+          <h4>Cross-team Coffee</h4>
+          <p>Random coffee pairings every two weeks — meet someone from a different team. The best ideas come from unexpected connections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEAMS ============ -->
+  <section class="section" id="neighborhoods">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">Coverage</div>
+        <h2>Active teams &amp; functions</h2>
+        <p>Growing every week. Don't see your team? Join and start a circle.</p>
+      </div>
+      <div class="neighborhoods-grid" id="neighborhoodsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section section-light" id="testimonials">
+    <div class="container">
+      <div class="sec-hdr">
+        <div class="badge">Real Stories</div>
+        <h2>Associates love their circles</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"I joined WGT from another city and knew nobody. The New Joiners Hub matched me with a buddy on day one. Within 2 weeks I had lunch plans, a running crew, and actual friends at work."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--mom)">R</div>
+            <div>
+              <b>Rahul S.</b>
+              <span>Software Engineer · Supply Chain Tech</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Morning Movers is the best thing about my work week. We run at 6AM before the day begins. I've built friendships across teams I'd never interact with otherwise. Zero hierarchy on the track."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--dad)">A</div>
+            <div>
+              <b>Ananya K.</b>
+              <span>Senior PM · GTO · WGT</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"The Women in Tech circle has been career-changing. We share opportunities, do mock interviews for each other, and celebrate wins. It's not a program — it's a real community."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--family)">P</div>
+            <div>
+              <b>Priya M.</b>
+              <span>Staff Engineer · Walmart Labs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section section-cta" id="cta">
+    <div class="container">
+      <div class="cta-box">
+        <span class="cta-badge">Verified @walmart.com · Free forever</span>
+        <h2>Your crew is already here.</h2>
+        <p>Pick your circle — join the Slack channel and you're in.</p>
+        <div class="join-circle-grid">
+          <button class="join-circle-card" style="--jcc: var(--kids)" onclick="openModalFiltered('family')">
+            <span class="jcc-emoji">👨‍👩‍👧</span>
+            <b>Family Circle</b>
+            <small>Cubbon Park · Lalbagh · Nandi Hills · +2</small>
+          </button>
+          <button class="join-circle-card" style="--jcc: var(--mom)" onclick="openModalFiltered('mom')">
+            <span class="jcc-emoji">🤱</span>
+            <b>Mom Circle</b>
+            <small>Postpartum · Pregnancy · Playdate</small>
+          </button>
+          <button class="join-circle-card" style="--jcc: var(--dad)" onclick="openModalFiltered('dad')">
+            <span class="jcc-emoji">🏸</span>
+            <b>Dad Circle</b>
+            <small>Badminton · Cricket · Playdate</small>
+          </button>
+          <button class="join-circle-card" style="--jcc: var(--tech)" onclick="openModalFiltered('tech')">
+            <span class="jcc-emoji">🤖</span>
+            <b>Tech Circle</b>
+            <small>GenAI · Conferences · Future of Work</small>
+          </button>
+          <button class="join-circle-card" style="--jcc: var(--joiner)" onclick="openModalFiltered('joiner')">
+            <span class="jcc-emoji">🌟</span>
+            <b>New Joiners</b>
+            <small>30-day buddy · Onboarding · Mixer</small>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a href="#" class="logo">
+            <span class="logo-mark">🪺</span>
+            <span class="logo-name" style="color: white">SocialBling</span>
+          </a>
+          <p class="footer-tagline">Building associate communities inside<br>Walmart, one circle at a time.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h5>Community</h5>
+            <ul>
+              <li><a href="#circles">Active Circles</a></li>
+              <li><a href="#circles">Interest Circles</a></li>
+              <li><a href="#meetups">Events</a></li>
+              <li><a href="#neighborhoods">Teams</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Info</h5>
+            <ul>
+              <li><a href="#">Community Guidelines</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Start a Circle</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SocialBling · Made with ❤️ at WGT Bangalore · <em>better together</em></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ GROUPS MODAL ============ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Find My Circle">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
+      <div class="modal-step" id="allGroupsPanel">
+        <div class="modal-hdr">
+          <h3>&#x1F50D; Find My Circle</h3>
+          <p>Join the Slack channel to connect with your people.</p>
+        </div>
+        <div class="ag-filter-bar">
+          <button class="ag-filter-btn" onclick="filterGroups('all', this)">All</button>
+          <button class="ag-filter-btn active" onclick="filterGroups('family', this)">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467; Family</button>
+          <button class="ag-filter-btn" onclick="filterGroups('mom', this)">🤱 Mom Circle</button>
+          <button class="ag-filter-btn" onclick="filterGroups('dad', this)">🏸 Dad Circle</button>
+          <button class="ag-filter-btn" onclick="filterGroups('tech', this)">🤖 Tech</button>
+          <button class="ag-filter-btn" onclick="filterGroups('joiner', this)">&#x1F31F; New Joiners</button>
+        </div>
+        <div id="allGroupsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="walmart-app.js"></script>
+</body>
+</html>

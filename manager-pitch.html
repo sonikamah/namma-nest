@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialBling — Proposal for WGT Associate Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #0071CE;
+      --blue-dark: #004C97;
+      --blue-light: #E8F3FB;
+      --gold: #FFC220;
+      --gold-dark: #E6A800;
+      --green: #00A651;
+      --text: #111827;
+      --muted: #6B7280;
+      --border: #D1E3F3;
+      --bg: #F0F6FC;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Yellow top stripe */
+    body::before {
+      content: '';
+      display: block;
+      height: 5px;
+      background: var(--gold);
+    }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 36px 32px 80px;
+    }
+
+    /* ---- HEADER ---- */
+    .doc-header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Spark watermark */
+    .doc-header::after {
+      content: '✳';
+      position: absolute;
+      right: -24px; bottom: -40px;
+      font-size: 180px;
+      color: rgba(255,194,32,0.12);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .doc-meta { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.9; text-align: right; flex-shrink: 0; }
+    .doc-meta strong { color: white; }
+    .doc-title { font-size: 26px; font-weight: 800; color: white; margin-bottom: 4px; letter-spacing: -0.5px; }
+    .doc-subtitle { font-size: 14px; color: rgba(255,255,255,0.7); }
+    .walmart-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--blue-dark);
+      font-size: 11px; font-weight: 800;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ---- SECTIONS ---- */
+    .section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      border-top: 3px solid var(--blue);
+    }
+    .section-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: 20px; font-weight: 800; color: var(--text);
+      margin-bottom: 12px; letter-spacing: -0.3px;
+    }
+    .section p {
+      font-size: 14px; color: #374151; line-height: 1.7; margin-bottom: 10px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ---- STAT ROW ---- */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin: 20px 0;
+    }
+    .stat-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; text-align: center;
+    }
+    .stat-box .num {
+      font-size: 28px; font-weight: 900; color: var(--blue);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ---- PROBLEM POINTS ---- */
+    .problem-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .problem-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; color: #374151; line-height: 1.5;
+    }
+    .problem-list .icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: #FEF2F2; color: #DC2626;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ---- SOLUTION GRID ---- */
+    .circle-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-top: 16px;
+    }
+    .circle-pill {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--gold);
+      background: var(--bg);
+    }
+    .circle-pill .emoji { font-size: 22px; margin-bottom: 6px; }
+    .circle-pill h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: var(--blue-dark); }
+    .circle-pill p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    /* ---- PILOT STEPS ---- */
+    .pilot-steps { display: flex; flex-direction: column; gap: 0; margin-top: 16px; position: relative; }
+    .pilot-step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding-bottom: 20px; position: relative;
+    }
+    .pilot-step:last-child { padding-bottom: 0; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold); color: var(--blue-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; flex-shrink: 0;
+    }
+    .pilot-step:not(:last-child) .step-num::after {
+      content: ''; position: absolute;
+      left: 15px; top: 32px;
+      width: 2px; height: calc(100% - 32px);
+      background: var(--border);
+    }
+    .step-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--blue-dark); }
+    .step-body p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .step-tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      background: var(--gold); color: var(--blue-dark); margin-bottom: 4px;
+    }
+
+    /* ---- ASK BOX ---- */
+    .ask-box {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      border-radius: 16px; padding: 28px 32px; color: white; margin-bottom: 16px;
+      border-top: 4px solid var(--gold);
+    }
+    .ask-box h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+    .ask-box p { font-size: 14px; opacity: 0.85; line-height: 1.6; margin-bottom: 16px; }
+    .ask-items { display: flex; flex-direction: column; gap: 10px; }
+    .ask-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; font-weight: 600;
+    }
+    .ask-item::before {
+      content: '✓'; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--gold); color: var(--blue-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; flex-shrink: 0;
+    }
+
+    /* ---- OUTCOME TABLE ---- */
+    .outcome-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+    .outcome-table th {
+      background: var(--blue-dark); color: white; text-align: left;
+      padding: 10px 14px; font-weight: 700; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .outcome-table th:first-child { border-radius: 8px 0 0 0; }
+    .outcome-table th:last-child { border-radius: 0 8px 0 0; }
+    .outcome-table td {
+      padding: 12px 14px; border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .outcome-table tr:nth-child(even) td { background: var(--bg); }
+    .outcome-table tr:last-child td { border-bottom: none; }
+    .outcome-table .metric { font-weight: 700; color: var(--text); }
+    .outcome-table .current { color: #DC2626; }
+    .outcome-table .target { color: var(--green); font-weight: 700; }
+
+    /* ---- FOOTER ---- */
+    .doc-footer {
+      text-align: center; font-size: 12px; color: var(--muted);
+      padding-top: 24px; border-top: 2px solid var(--gold); margin-top: 8px;
+    }
+    .doc-footer .spark { color: var(--gold); font-size: 18px; }
+
+    @media print {
+      body { background: white; }
+      body::before { display: none; }
+      .page { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div>
+      <div class="walmart-badge">✳ Internal Proposal · WGT Bangalore</div>
+      <div class="doc-title">SocialBling — Associate Community Platform</div>
+      <div class="doc-subtitle">Proposal for a 90-day pilot at Walmart Global Tech, Bangalore</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>From:</strong> Sonika Maheshwari</div>
+      <div><strong>Date:</strong> June 2026</div>
+      <div><strong>For:</strong> Engineering Manager / HR</div>
+      <div><strong>Type:</strong> Pilot Proposal</div>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <h2>Associates feel disconnected — even in the same office</h2>
+    <p>At WGT Bangalore, most associates interact only within their immediate team. New joiners take 3–6 months to feel truly settled. Cross-team friendships that drive innovation and retention rarely form organically.</p>
+
+    <ul class="problem-list">
+      <li>
+        <div class="icon">⏱️</div>
+        <span><strong>New joiners take too long to settle.</strong> Without structured social connection, the first 90 days are isolating — especially for associates relocating to Bangalore.</span>
+      </li>
+      <li>
+        <div class="icon">📉</div>
+        <span><strong>Attrition peaks in year 1–2.</strong> Industry data shows 60%+ of early attrition is driven by poor belonging and lack of peer community, not compensation.</span>
+      </li>
+      <li>
+        <div class="icon">🧱</div>
+        <span><strong>Teams stay in silos.</strong> Associates in Finance, GTO, and Supply Chain rarely interact outside their project. Cross-team energy that drives big ideas is missing.</span>
+      </li>
+      <li>
+        <div class="icon">👨‍👩‍👧</div>
+        <span><strong>Working parents are underserved.</strong> Associates with kids have no structured way to connect with other WGT parents for school tips, carpooling, or family outings in Bangalore.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- THE SOLUTION -->
+  <div class="section">
+    <div class="section-label">The Solution</div>
+    <h2>SocialBling — verified associate circles on Slack</h2>
+    <p>SocialBling is an interest-based community platform built for Walmart associates. Associates join circles by interest, and each circle gets a dedicated <strong>#social-bling-*</strong> Slack channel. Zero new tools — it lives where associates already work.</p>
+
+    <div class="circle-grid">
+      <div class="circle-pill">
+        <div class="emoji">🏃</div>
+        <h4>Active Circles</h4>
+        <p>Morning Movers, Cricket, Yoga</p>
+      </div>
+      <div class="circle-pill">
+        <div class="emoji">💡</div>
+        <h4>Interest Circles</h4>
+        <p>Book Club, WIT, Foodies</p>
+      </div>
+      <div class="circle-pill">
+        <div class="emoji">🌟</div>
+        <h4>New Joiners</h4>
+        <p>30-day buddy, onboarding support</p>
+      </div>
+      <div class="circle-pill">
+        <div class="emoji">👨‍👩‍👧</div>
+        <h4>Parents @ WGT</h4>
+        <p>Family meetups, Bangalore outings</p>
+      </div>
+      <div class="circle-pill">
+        <div class="emoji">💚</div>
+        <h4>Wellness</h4>
+        <p>Anonymous check-ins, real talk</p>
+      </div>
+      <div class="circle-pill">
+        <div class="emoji">☕</div>
+        <h4>Cross-team Coffee</h4>
+        <p>Random pairings every 2 weeks</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT ALREADY EXISTS -->
+  <div class="section">
+    <div class="section-label">What's Already Built</div>
+    <h2>This isn't a future idea — it's ready to pilot today</h2>
+    <p>A working prototype of the WGT community hub is already live at <strong>socialbling.in/walmart-meetup</strong>. It includes all 9 circles, family meetups at Cubbon Park / Lalbagh / Bannerghatta, Slack channel integration, and a teams grid covering 18 WGT functions.</p>
+    <p>The platform is built on standard web technologies — no infrastructure cost, no new tool procurement required. Associates join circles and get routed directly to their <strong>#social-bling-*</strong> Slack channels.</p>
+  </div>
+
+  <!-- THE PILOT -->
+  <div class="section">
+    <div class="section-label">The Pilot Plan</div>
+    <h2>90 days · 50 volunteers · zero budget ask</h2>
+
+    <div class="pilot-steps">
+      <div class="pilot-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-tag">Week 1–2</div>
+          <h4>Recruit 50 volunteer associates</h4>
+          <p>Spread across 5 teams. Mix of new joiners (&lt;6 months) and established associates. Create the 9 Slack channels under <strong>#social-bling-*</strong> naming.</p>
+        </div>
+      </div>
+      <div class="pilot-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-tag">Week 3–8</div>
+          <h4>Run circles &amp; events</h4>
+          <p>Each circle self-organizes: morning runs, lunch collectives, family outings (Cubbon Park, Lalbagh), WIT talks, wellness check-ins. Facilitator spends ~1hr/week total.</p>
+        </div>
+      </div>
+      <div class="pilot-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-tag">Week 10–12</div>
+          <h4>Measure &amp; report</h4>
+          <p>Pulse survey at 30 and 90 days. Track: belonging score, new joiner confidence rating, cross-team connection count. Compare to non-pilot control group.</p>
+        </div>
+      </div>
+      <div class="pilot-step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-tag">Day 90</div>
+          <h4>Decision: roll out or learn</h4>
+          <p>Present data to People team. If NPS &gt; 70 and belonging scores improve → full WGT rollout. If not → clear learnings documented, no sunk cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPECTED OUTCOMES -->
+  <div class="section">
+    <div class="section-label">Expected Impact</div>
+    <h2>What success looks like at 90 days</h2>
+    <table class="outcome-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Current (est.)</th>
+          <th>Target at Day 90</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">New joiner belonging score</td>
+          <td class="current">~5.5 / 10</td>
+          <td class="target">≥ 7.5 / 10</td>
+        </tr>
+        <tr>
+          <td class="metric">Time to "feel settled" (new joiners)</td>
+          <td class="current">~4 months</td>
+          <td class="target">≤ 6 weeks</td>
+        </tr>
+        <tr>
+          <td class="metric">Cross-team connections per associate</td>
+          <td class="current">2–3 people</td>
+          <td class="target">8–12 people</td>
+        </tr>
+        <tr>
+          <td class="metric">Pilot NPS</td>
+          <td class="current">—</td>
+          <td class="target">≥ 70</td>
+        </tr>
+        <tr>
+          <td class="metric">Associates requesting full rollout</td>
+          <td class="current">—</td>
+          <td class="target">≥ 80% of pilot group</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- THE ASK -->
+  <div class="ask-box">
+    <h2>What I'm asking for</h2>
+    <p>This requires no budget and no new tools. I need your support to recruit volunteers and create the Slack channels.</p>
+    <div class="ask-items">
+      <div class="ask-item">Permission to create 9 <strong>#social-bling-*</strong> Slack channels at WGT</div>
+      <div class="ask-item">A shoutout to recruit 50 volunteer associates from our org</div>
+      <div class="ask-item">30 minutes with you at Day 30 and Day 90 to review data</div>
+      <div class="ask-item">No budget. No vendor. No procurement. Just community.</div>
+    </div>
+  </div>
+
+  <!-- WHY NOW -->
+  <div class="section">
+    <div class="section-label">Why Now</div>
+    <h2>The right time to build this is before we need it</h2>
+    <p>Return-to-office has increased face time, but not connection. Associates are physically present but socially isolated across teams. The infrastructure for community (Slack, people, shared spaces) already exists — it just needs a structure to activate it.</p>
+    <p>SocialBling provides that structure with zero cost and very low risk. If it works, we have a playbook for every Walmart office globally. If it doesn't, we learn what our associates actually need to feel connected — which is valuable either way.</p>
+    <p style="font-weight:700;color:var(--text)">I'd love 15 minutes to walk you through the live prototype. Happy to demo on your laptop right now.</p>
+  </div>
+
+  <div class="doc-footer">
+    <p><span class="spark">✳</span> SocialBling · Sonika Maheshwari · WGT Bangalore · June 2026</p>
+    <p style="margin-top:4px">Live demo: <strong>socialbling.in/walmart-meetup</strong></p>
+  </div>
+
+</div>
+</body>
+</html>
